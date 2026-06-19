@@ -95,11 +95,13 @@ export default function Navbar() {
   // shown: whether the sidebar panel is currently open.
   const mobileSidebar = useNavbarMobileSidebar();
 
+  // Wrapper receives navbar-sidebar--show so the sidebar panel (.navbar-sidebar)
+  // and backdrop are rendered OUTSIDE the <header> element. This prevents
+  // backdrop-filter on the header from creating a CSS containing block for
+  // those position:fixed children (which would clamp their height to 59px).
   return (
-    <header
-      className={
-        'navbar ' + styles.header + (mobileSidebar.shown ? ' navbar-sidebar--show' : '')
-      }>
+    <div className={mobileSidebar.shown ? 'navbar-sidebar--show' : undefined}>
+    <header className={'navbar ' + styles.header}>
 
       {/* Left group: sidebar toggle (mobile docs only) + logo */}
       <div className={styles.headerLeft}>
@@ -181,15 +183,17 @@ export default function Navbar() {
         </>
       )}
 
-      {/* Docusaurus mobile sidebar backdrop — dismisses sidebar on outside tap */}
-      <div
-        role="presentation"
-        className="navbar-sidebar__backdrop"
-        onClick={mobileSidebar.toggle}
-      />
-
-      {/* Docusaurus mobile sidebar panel (docs navigation) */}
-      <NavbarMobileSidebar />
     </header>
+
+    {/* Sidebar backdrop and panel are siblings to <header>, NOT children.
+        This keeps them outside the backdrop-filter containing block so their
+        position:fixed sizing is relative to the viewport, not the navbar. */}
+    <div
+      role="presentation"
+      className="navbar-sidebar__backdrop"
+      onClick={mobileSidebar.toggle}
+    />
+    <NavbarMobileSidebar />
+    </div>
   );
 }

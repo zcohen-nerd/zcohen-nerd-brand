@@ -1,12 +1,13 @@
 {
   "name": "@zcohen-nerd/brand",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Shared Docusaurus brand system for the zcohen-nerd ecosystem — design tokens, Infima bridge, swizzled Navbar + Footer with docs-sidebar support, and the canonical project registry.",
   "license": "MIT",
   "main": "index.js",
   "files": [
     "index.js",
     "tokens/",
+    "lib/",
     "src/components/",
     "src/data/",
     "src/infima-bridge.css",
@@ -24,7 +25,8 @@
     "./assets/*": "./assets/*"
   },
   "scripts": {
-    "pack:dry": "npm pack --dry-run"
+    "build": "NODE_ENV=production babel src --out-dir lib --copy-files --extensions '.js'",
+    "pack:dry": "npm run build && npm pack --dry-run"
   },
   "keywords": [
     "docusaurus",
@@ -42,5 +44,11 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zcohen-nerd/zcohen-nerd-brand.git"
+  },
+  "devDependencies": {
+    "@babel/cli": "^8.0.1",
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
+    "@babel/preset-react": "^8.0.1"
   }
 }
