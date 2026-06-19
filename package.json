@@ -1,15 +1,16 @@
 {
   "name": "@zcohen-nerd/brand",
   "version": "1.0.0",
-  "description": "Shared brand package for the zcohen-nerd ecosystem — design tokens, Infima bridge, swizzled Navbar + Footer, and the canonical project registry. Every property imports this so the chrome never drifts.",
+  "description": "Shared Docusaurus brand system for the zcohen-nerd ecosystem — design tokens, Infima bridge, swizzled Navbar + Footer with docs-sidebar support, and the canonical project registry.",
   "license": "MIT",
   "main": "index.js",
-  "types": "index.js",
   "files": [
     "index.js",
-    "tokens",
-    "src",
-    "assets"
+    "tokens/",
+    "src/components/",
+    "src/data/",
+    "src/infima-bridge.css",
+    "assets/"
   ],
   "exports": {
     ".": "./index.js",
@@ -18,13 +19,19 @@
     "./src/components/*": "./src/components/*",
     "./src/data/projects": "./src/data/projects.js",
     "./src/data/projects.js": "./src/data/projects.js",
+    "./src/data/defaultBrand": "./src/data/defaultBrand.js",
+    "./src/data/defaultBrand.js": "./src/data/defaultBrand.js",
     "./assets/*": "./assets/*"
+  },
+  "scripts": {
+    "pack:dry": "npm pack --dry-run"
   },
   "keywords": [
     "docusaurus",
     "docusaurus-theme",
-    "zcohen-nerd",
+    "brand-system",
     "design-tokens",
+    "zcohen-nerd",
     "brand"
   ],
   "peerDependencies": {

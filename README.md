@@ -22,16 +22,15 @@ sites.
 
 ## How to consume (Docusaurus site)
 
-### 1. Add the dependency
+### 1. Install
 
-Local workspace (until the package is published):
-```json
-"dependencies": { "@zcohen-nerd/brand": "file:../../brand/zcohen-nerd-brand" }
+```bash
+npm install @zcohen-nerd/brand
 ```
 
-Once published:
+**Local workspace (before publication):** install via file path instead:
 ```json
-"dependencies": { "@zcohen-nerd/brand": "^1.0.0" }
+"dependencies": { "@zcohen-nerd/brand": "file:../../brand/zcohen-nerd-brand" }
 ```
 
 ### 2. Register the theme plugin
@@ -299,3 +298,39 @@ and sets `data-theme` automatically.
 
 The full design handoff (finalized landing page HTML, per-component specs, and
 the token file) lives in `design_handoff_zcohen_nerd_landing/README.md`.
+
+---
+
+## Publishing (maintainers only)
+
+> **This section is for package maintainers, not consumers.**
+
+The package is scoped to `@zcohen-nerd`. Publication requires an npm account with access to that scope.
+
+**Dry-run inspection (no publish):**
+```bash
+npm run pack:dry
+# or
+npm pack --dry-run
+```
+
+**Local tarball (no publish — for local install testing):**
+```bash
+npm pack
+# Creates zcohen-nerd-brand-1.0.0.tgz
+# Install into a consumer with: npm install /path/to/zcohen-nerd-brand-1.0.0.tgz
+# Delete the .tgz file when done — it is .gitignored
+```
+
+**Publish (when ready):**
+```bash
+npm publish --access public
+```
+
+`--access public` is required because the package is scoped (`@zcohen-nerd/brand`) and scoped packages default to private.
+
+**Before publishing:**
+1. Confirm the npm scope `@zcohen-nerd` exists and you are logged in (`npm whoami`).
+2. Bump the version in `package.json` if this is not the initial release (`npm version patch|minor|major`).
+3. Run `npm run pack:dry` and verify the file list is correct.
+4. Tag the release commit in git.
