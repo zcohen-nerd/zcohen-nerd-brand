@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from '@docusaurus/Link';
 import projects from '../../data/projects';
 import styles from './styles.module.css';
 
@@ -15,7 +14,6 @@ import styles from './styles.module.css';
 const CONNECT_LINKS = [
   {label: 'GitHub', href: 'https://github.com/zcohen-nerd'},
   {label: 'Email', href: 'mailto:hello@zcohen-nerd.com'},
-  {label: 'RSS', href: '/blog/rss.xml'},
 ];
 
 export default function Footer() {
@@ -38,9 +36,9 @@ export default function Footer() {
               <div className={styles.colHeading}>Ecosystem</div>
               <div className={styles.linkList}>
                 {projects.map((p) => (
-                  <Link key={p.name} to={p.href} className={styles.footerLink}>
+                  <a key={p.name} href={p.href} className={styles.footerLink}>
                     {p.name}
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>

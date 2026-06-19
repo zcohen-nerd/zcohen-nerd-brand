@@ -38,7 +38,7 @@ const STATUS_IN_PROGRESS = {
 const projects = [
   {
     name: 'Portfolio',
-    href: '/portfolio',
+    href: 'https://zcohen-nerd.github.io/Portfolio/',
     emoji: '⚙️',
     blurb: 'Selected work in software, hardware, and the systems that connect them.',
     status: STATUS_LIVE,
@@ -49,7 +49,7 @@ const projects = [
   },
   {
     name: 'Literacy for Kids',
-    href: '/literacy',
+    href: 'https://literacy-for-kids.github.io/literacy_for_kids/',
     emoji: '📚',
     blurb: 'Free, open curricula teaching kids 8–12 how modern systems actually work.',
     status: STATUS_LIVE,
@@ -60,7 +60,7 @@ const projects = [
   },
   {
     name: 'Connector Guide',
-    href: '/connectors',
+    href: 'https://zcohen-nerd.github.io/connector-engineering-field-guide/',
     emoji: '🔌',
     blurb: 'A field guide and teaching tool for professional electrical connectors.',
     status: STATUS_IN_PROGRESS,

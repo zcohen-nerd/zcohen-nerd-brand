@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useRef} from 'react';
-import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import projects from '../../data/projects';
 import styles from './styles.module.css';
@@ -58,9 +57,9 @@ function ProjectSwitcher() {
       {open && (
         <div className={styles.dropdown} role="menu">
           {projects.map((p) => (
-            <Link
+            <a
               key={p.name}
-              to={p.href}
+              href={p.href}
               className={styles.dropdownItem}
               role="menuitem"
               onClick={() => setOpen(false)}>
@@ -68,7 +67,7 @@ function ProjectSwitcher() {
                 {p.emoji}
               </span>
               <span className={styles.dropdownName}>{p.name}</span>
-            </Link>
+            </a>
           ))}
         </div>
       )}
@@ -82,9 +81,9 @@ export default function Navbar() {
 
   return (
     <header className={styles.header}>
-      <Link to="/" className={styles.logoLink} aria-label="zcohen-nerd home">
+      <a href="https://zcohen-nerd.github.io/" className={styles.logoLink} aria-label="zcohen-nerd home">
         <img className={styles.logo} src={logoUrl} alt="zcohen-nerd" />
-      </Link>
+      </a>
 
       <nav className={styles.nav} aria-label="Primary">
         {NAV_LINKS.map((l) => (
@@ -125,13 +124,13 @@ export default function Navbar() {
             ))}
             <div className={styles.drawerHeading}>Projects</div>
             {projects.map((p) => (
-              <Link
+              <a
                 key={p.name}
-                to={p.href}
+                href={p.href}
                 className={styles.drawerLink}
                 onClick={() => setDrawerOpen(false)}>
                 <span aria-hidden="true">{p.emoji}</span> {p.name}
-              </Link>
+              </a>
             ))}
           </div>
         </>
