@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {useDocusaurusContext} from '@docusaurus/core';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import projects from '../../data/projects';
 import styles from './styles.module.css';

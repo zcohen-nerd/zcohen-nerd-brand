@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDocusaurusContext} from '@docusaurus/core';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import projects from '../../data/projects';
 import styles from './styles.module.css';
 
