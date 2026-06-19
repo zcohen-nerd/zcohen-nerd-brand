@@ -1,0 +1,238 @@
+/* ============================================================================
+   zcohen-nerd — Design Token Starter
+   Umbrella design system for the zcohen-nerd ecosystem.
+   Practical engineering, systems thinking, and modern literacy —
+   documented in public.
+
+   USAGE
+   -----
+   1. Link this file once, before any project/theme CSS:
+        <link rel="stylesheet" href="/assets/css/zcohen-nerd-tokens.css">
+   2. Set the project family on <html> or a wrapper:
+        <html data-theme="literacy">   (literacy | connectors | engineering | teaching)
+        omit data-theme  ->  parent zcohen-nerd theme (navy/cyan)
+   3. Reference tokens, never raw hex:
+        color: var(--zc-color-text);
+        background: var(--zc-color-primary);
+
+   All tokens are prefixed --zc- to avoid collisions when layered on top of
+   an existing site (e.g. Docusaurus/Infima --ifm-*). Map framework vars to
+   these in a thin theme-override file rather than editing this file.
+   ============================================================================ */
+
+:root {
+  /* ── Brand primitives (from the ZN logo) ───────────────────────────────── */
+  --zc-navy-900: #0a1428;
+  --zc-navy-800: #0c1a33;
+  --zc-navy-700: #102040;  /* core brand ink — the "Z" */
+  --zc-navy-600: #1b3358;
+  --zc-navy-500: #294b78;
+  --zc-navy-400: #3d6094;
+  --zc-navy-300: #6f8bb4;
+  --zc-navy-200: #aebed1;
+
+  --zc-cyan-700: #0b7e96;
+  --zc-cyan-600: #0e9fbd;
+  --zc-cyan-500: #10b8d8;  /* core brand accent — the "N" + rule */
+  --zc-cyan-400: #4fcde4;
+  --zc-cyan-300: #8fdcec;
+  --zc-cyan-100: #d3f1f7;
+  --zc-cyan-050: #eaf9fc;
+
+  --zc-amber-500: #f8c840; /* signal dot — sparing highlight only */
+  --zc-amber-600: #e0ab16;
+
+  /* ── Neutral scale (Infima-compatible grays) ───────────────────────────── */
+  --zc-white:    #ffffff;
+  --zc-gray-50:  #f7f8fa;
+  --zc-gray-100: #f5f6f7;
+  --zc-gray-200: #ebedf0;
+  --zc-gray-300: #dadde1;
+  --zc-gray-400: #ccd0d5;
+  --zc-gray-500: #bec3c9;
+  --zc-gray-600: #8d949e;
+  --zc-gray-700: #606770;
+  --zc-gray-800: #444950;
+  --zc-gray-900: #1c1e21;
+  --zc-black:    #000000;
+
+  /* ── Semantic colors (parent zcohen-nerd theme) ────────────────────────── */
+  --zc-color-primary:        var(--zc-navy-700);
+  --zc-color-primary-hover:  var(--zc-navy-600);
+  --zc-color-primary-active: var(--zc-navy-800);
+  --zc-color-accent:         var(--zc-cyan-500);
+  --zc-color-accent-hover:   var(--zc-cyan-600);
+  --zc-color-signal:         var(--zc-amber-500);
+
+  --zc-color-bg:        var(--zc-white);
+  --zc-color-surface:   var(--zc-white);
+  --zc-color-sunken:    var(--zc-gray-100);
+  --zc-color-rail:      var(--zc-gray-50);
+  --zc-color-footer-bg: var(--zc-navy-800);
+
+  --zc-color-border:        var(--zc-gray-200);
+  --zc-color-border-strong: var(--zc-gray-300);
+  --zc-color-focus-ring:    var(--zc-cyan-500);
+
+  --zc-color-text:       var(--zc-gray-900);
+  --zc-color-text-body:  var(--zc-gray-800);
+  --zc-color-text-muted: var(--zc-gray-700);
+  --zc-color-text-subtle:var(--zc-gray-600);
+  --zc-color-text-invert:var(--zc-white);
+  --zc-color-link:       var(--zc-cyan-700);
+  --zc-color-link-hover: var(--zc-navy-700);
+
+  /* Feedback / status (shared across all themes) */
+  --zc-color-success: #2e8555;
+  --zc-color-info:    #1b75bb;
+  --zc-color-warning: #b06f00;
+  --zc-color-danger:  #c0392b;
+  --zc-color-note:    var(--zc-gray-700);
+
+  /* ── Typography ─────────────────────────────────────────────────────────── */
+  --zc-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --zc-font-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --zc-text-xs:   0.75rem;   /* 12px — captions, badges            */
+  --zc-text-sm:   0.875rem;  /* 14px — fine print, table cells     */
+  --zc-text-base: 1rem;      /* 16px — body                        */
+  --zc-text-lg:   1.125rem;  /* 18px — lead body                   */
+  --zc-text-xl:   1.375rem;  /* 22px — h4 / card title             */
+  --zc-text-2xl:  1.75rem;   /* 28px — h3                          */
+  --zc-text-3xl:  2.25rem;   /* 36px — h2                          */
+  --zc-text-4xl:  3rem;      /* 48px — h1                          */
+  --zc-text-5xl:  3.75rem;   /* 60px — hero display                */
+
+  --zc-leading-tight:   1.15;
+  --zc-leading-snug:    1.3;
+  --zc-leading-normal:  1.55;
+  --zc-leading-relaxed: 1.75;  /* lesson / long-form reading       */
+
+  --zc-weight-regular:  400;
+  --zc-weight-medium:   500;
+  --zc-weight-semibold: 600;
+  --zc-weight-bold:     700;
+
+  --zc-tracking-tight:  -0.01em;
+  --zc-tracking-normal: 0;
+  --zc-tracking-wide:   0.08em;  /* uppercase eyebrows               */
+
+  /* ── Spacing scale (4px base) ──────────────────────────────────────────── */
+  --zc-space-0:  0;
+  --zc-space-1:  0.25rem;  /*  4 */
+  --zc-space-2:  0.5rem;   /*  8 */
+  --zc-space-3:  0.75rem;  /* 12 */
+  --zc-space-4:  1rem;     /* 16 */
+  --zc-space-5:  1.5rem;   /* 24 */
+  --zc-space-6:  2rem;     /* 32 */
+  --zc-space-7:  3rem;     /* 48 */
+  --zc-space-8:  4rem;     /* 64 */
+  --zc-space-9:  6rem;     /* 96 */
+
+  /* ── Radii ─────────────────────────────────────────────────────────────── */
+  --zc-radius-sm:   6px;
+  --zc-radius-md:   8px;    /* buttons, code                       */
+  --zc-radius-lg:   12px;   /* admonitions, small cards            */
+  --zc-radius-xl:   16px;   /* cards                               */
+  --zc-radius-2xl:  22px;   /* hero media, feature frames          */
+  --zc-radius-pill: 999px;  /* badges, kickers                     */
+
+  /* ── Borders ───────────────────────────────────────────────────────────── */
+  --zc-border-hairline: 1px solid var(--zc-color-border);
+  --zc-border-strong:   1px solid var(--zc-color-border-strong);
+  --zc-border-accent:   3px solid var(--zc-color-accent);
+
+  /* ── Shadows (cool, blue-tinted — never neutral gray) ──────────────────── */
+  --zc-shadow-sm:  0 1px 2px rgba(16, 32, 64, .06);
+  --zc-shadow-md:  0 10px 30px rgba(22, 48, 87, .06);
+  --zc-shadow-lg:  0 22px 60px rgba(22, 48, 87, .12);
+  --zc-shadow-focus: 0 0 0 3px rgba(16, 184, 216, .45);
+
+  /* ── Layout widths ─────────────────────────────────────────────────────── */
+  --zc-width-page:   1280px;  /* full app shell                      */
+  --zc-width-content:1140px;  /* marketing / landing                 */
+  --zc-width-docs:    900px;  /* documentation column                */
+  --zc-width-reading: 72ch;   /* lesson / article reading measure    */
+
+  /* ── Z-index ───────────────────────────────────────────────────────────── */
+  --zc-z-base:      0;
+  --zc-z-sticky:    100;  /* sticky section headers              */
+  --zc-z-navbar:    1000; /* global parent nav                   */
+  --zc-z-dropdown:  1100; /* project switcher                    */
+  --zc-z-overlay:   2000; /* mobile drawer scrim                 */
+  --zc-z-modal:     3000;
+  --zc-z-toast:     4000;
+
+  /* ── Motion ────────────────────────────────────────────────────────────── */
+  --zc-ease:        cubic-bezier(.4, 0, .2, 1);
+  --zc-transition-fast: 150ms var(--zc-ease);
+  --zc-transition:      200ms var(--zc-ease);
+  --zc-transition-slow: 320ms var(--zc-ease);
+}
+
+/* ============================================================================
+   PROJECT-FAMILY THEMES
+   Re-skin only the primary/accent + hero treatment. Everything else
+   (neutrals, type, spacing, radii, shadows) stays shared so the ecosystem
+   reads as one system.
+   ============================================================================ */
+
+/* Literacy for Kids — warm, friendly, encouraging (inherits live LFK palette) */
+[data-theme="literacy"] {
+  --zc-color-primary:        #2e8555;
+  --zc-color-primary-hover:  #33925d;
+  --zc-color-primary-active: #205d3b;
+  --zc-color-accent:         #4a90d9;
+  --zc-color-accent-hover:   #2d78cd;
+  --zc-color-link:           #29784c;
+  --zc-color-link-hover:     #205d3b;
+  --zc-color-footer-bg:      #1a1a2e;
+}
+
+/* Professional Connector Guide — precise, field-guide, trustworthy */
+[data-theme="connectors"] {
+  --zc-color-primary:        #1f3a5f;  /* instrument navy   */
+  --zc-color-primary-hover:  #2a4d7a;
+  --zc-color-primary-active: #15293f;
+  --zc-color-accent:         #c2410c;  /* safety / signal orange */
+  --zc-color-accent-hover:   #9a3412;
+  --zc-color-link:           #b8460a;
+  --zc-color-link-hover:     #7c2d12;
+  --zc-color-footer-bg:      #15293f;
+}
+
+/* Engineering Projects / Tools — practical, lab-notebook, systems-oriented */
+[data-theme="engineering"] {
+  --zc-color-primary:        var(--zc-navy-700);
+  --zc-color-primary-hover:  var(--zc-navy-600);
+  --zc-color-primary-active: var(--zc-navy-800);
+  --zc-color-accent:         #10b8d8;  /* parent cyan, intensified by mono UI */
+  --zc-color-accent-hover:   #0e9fbd;
+  --zc-color-signal:         #f8c840;
+  --zc-color-link:           #0b7e96;
+  --zc-color-link-hover:     #102040;
+  --zc-color-footer-bg:      #0a1428;
+}
+
+/* Teaching / Curriculum (facilitator-facing) — calm, structured, scholarly */
+[data-theme="teaching"] {
+  --zc-color-primary:        #4338ca;  /* indigo */
+  --zc-color-primary-hover:  #4f46e5;
+  --zc-color-primary-active: #3730a3;
+  --zc-color-accent:         #0e9fbd;
+  --zc-color-accent-hover:   #0b7e96;
+  --zc-color-link:           #4338ca;
+  --zc-color-link-hover:     #3730a3;
+  --zc-color-footer-bg:      #1e1b4b;
+}
+
+/* ============================================================================
+   ACCESSIBILITY HELPERS
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --zc-transition-fast: 0ms;
+    --zc-transition: 0ms;
+    --zc-transition-slow: 0ms;
+  }
+}

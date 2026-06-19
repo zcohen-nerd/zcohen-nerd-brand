@@ -1,0 +1,39 @@
+{
+  "name": "@zcohen-nerd/brand",
+  "version": "1.0.0",
+  "description": "Shared brand package for the zcohen-nerd ecosystem — design tokens, Infima bridge, swizzled Navbar + Footer, and the canonical project registry. Every property imports this so the chrome never drifts.",
+  "license": "MIT",
+  "main": "index.js",
+  "types": "index.js",
+  "files": [
+    "index.js",
+    "tokens",
+    "src",
+    "assets"
+  ],
+  "exports": {
+    ".": "./index.js",
+    "./tokens/zcohen-nerd-tokens.css": "./tokens/zcohen-nerd-tokens.css",
+    "./src/infima-bridge.css": "./src/infima-bridge.css",
+    "./src/components/*": "./src/components/*",
+    "./src/data/projects": "./src/data/projects.js",
+    "./src/data/projects.js": "./src/data/projects.js",
+    "./assets/*": "./assets/*"
+  },
+  "keywords": [
+    "docusaurus",
+    "docusaurus-theme",
+    "zcohen-nerd",
+    "design-tokens",
+    "brand"
+  ],
+  "peerDependencies": {
+    "@docusaurus/core": ">=3.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zcohen-nerd/zcohen-nerd-brand"
+  }
+}

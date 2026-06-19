@@ -1,0 +1,83 @@
+/* ============================================================================
+   zcohen-nerd — Infima bridge
+   Points Docusaurus' Infima (--ifm-*) variables at the brand tokens (--zc-*).
+   Import this AFTER tokens/zcohen-nerd-tokens.css and let it sit above the
+   site's own custom.css rules:
+
+     @import '@zcohen-nerd/brand/tokens/zcohen-nerd-tokens.css';
+     @import '@zcohen-nerd/brand/src/infima-bridge.css';
+
+   Do not put raw hex here — only reference --zc-* tokens, so the single source
+   of truth stays the token file. Re-skinning per family is done by setting
+   data-theme on <html> (see the token file's family scopes); the --zc-color-*
+   semantics flow through these mappings automatically.
+   ============================================================================ */
+
+:root {
+  /* ── Primary / accent ──────────────────────────────────────────────────── */
+  --ifm-color-primary:         var(--zc-color-primary);
+  --ifm-color-primary-dark:    var(--zc-color-primary-hover);
+  --ifm-color-primary-darker:  var(--zc-color-primary-hover);
+  --ifm-color-primary-darkest: var(--zc-color-primary-active);
+  --ifm-color-primary-light:   var(--zc-navy-600);
+  --ifm-color-primary-lighter: var(--zc-navy-500);
+  --ifm-color-primary-lightest:var(--zc-navy-400);
+
+  /* ── Surfaces & text ───────────────────────────────────────────────────── */
+  --ifm-background-color:         var(--zc-color-bg);
+  --ifm-background-surface-color: var(--zc-color-surface);
+  --ifm-color-content:            var(--zc-color-text-body);
+  --ifm-color-content-secondary:  var(--zc-color-text-muted);
+  --ifm-heading-color:            var(--zc-color-text);
+
+  /* ── Borders ───────────────────────────────────────────────────────────── */
+  --ifm-color-emphasis-200: var(--zc-color-border);
+  --ifm-color-emphasis-300: var(--zc-color-border-strong);
+  --ifm-hr-border-color:    var(--zc-color-border);
+  --ifm-toc-border-color:   var(--zc-color-border);
+
+  /* ── Links ─────────────────────────────────────────────────────────────── */
+  --ifm-link-color:       var(--zc-color-link);
+  --ifm-link-hover-color: var(--zc-color-link-hover);
+
+  /* ── Typography ────────────────────────────────────────────────────────── */
+  --ifm-font-family-base:       var(--zc-font-sans);
+  --ifm-font-family-monospace:  var(--zc-font-mono);
+  --ifm-font-weight-semibold:   var(--zc-weight-semibold);
+  --ifm-font-weight-bold:       var(--zc-weight-bold);
+  --ifm-heading-font-weight:    var(--zc-weight-bold);
+  --ifm-line-height-base:       var(--zc-leading-normal);
+
+  /* ── Radii ─────────────────────────────────────────────────────────────── */
+  --ifm-global-radius:  var(--zc-radius-md);
+  --ifm-button-border-radius: var(--zc-radius-md);
+  --ifm-code-border-radius:   var(--zc-radius-sm);
+
+  /* ── Shadows (cool, blue-tinted — never neutral gray) ──────────────────── */
+  --ifm-global-shadow-lw: var(--zc-shadow-sm);
+  --ifm-global-shadow-md: var(--zc-shadow-md);
+  --ifm-global-shadow-tl: var(--zc-shadow-lg);
+
+  /* ── Navbar (chrome is fully swizzled, but keep Infima consistent) ─────── */
+  --ifm-navbar-background-color: rgba(255, 255, 255, .85);
+  --ifm-navbar-shadow:           none;
+  --ifm-navbar-link-color:       var(--zc-color-text-body);
+  --ifm-navbar-link-hover-color: var(--zc-cyan-700);
+  --ifm-navbar-height:           60px;
+
+  /* ── Footer ────────────────────────────────────────────────────────────── */
+  --ifm-footer-background-color: var(--zc-color-footer-bg);
+  --ifm-footer-color:            var(--zc-navy-200);
+  --ifm-footer-link-color:       var(--zc-navy-200);
+  --ifm-footer-link-hover-color: var(--zc-white);
+  --ifm-footer-title-color:      var(--zc-navy-300);
+
+  /* ── Layout width ──────────────────────────────────────────────────────── */
+  --ifm-container-width:    var(--zc-width-content);
+  --ifm-container-width-xl: var(--zc-width-page);
+
+  /* ── Motion / focus ────────────────────────────────────────────────────── */
+  --ifm-transition-fast:  150ms;
+  --ifm-transition-slow:  200ms;
+  --ifm-transition-timing-default: cubic-bezier(.4, 0, .2, 1);
+}

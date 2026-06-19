@@ -1,0 +1,113 @@
+/* Shared zcohen-nerd Footer — navy command-deck. */
+
+.footer {
+  background: var(--zc-navy-800);
+  padding: 56px 40px 32px;
+}
+
+.inner {
+  max-width: var(--zc-width-content);
+  margin: 0 auto;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.brandCol {
+  max-width: 340px;
+}
+
+.wordmark {
+  font-family: var(--zc-font-mono);
+  font-size: 20px;
+  font-weight: var(--zc-weight-bold);
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.wordmarkAccent {
+  color: var(--zc-cyan-500);
+}
+
+.tagline {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--zc-navy-200);
+  margin: 14px 0 0;
+}
+
+.linkCols {
+  display: flex;
+  gap: 64px;
+}
+
+.colHeading {
+  font-family: var(--zc-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--zc-navy-300);
+  margin-bottom: 14px;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footerLink {
+  font-size: 14px;
+  color: var(--zc-navy-200);
+  text-decoration: none;
+  transition: color var(--zc-transition-fast);
+}
+
+.footerLink:hover {
+  color: #fff;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--zc-navy-600);
+  margin-top: 40px;
+  padding-top: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.copyright {
+  font-size: 13px;
+  color: var(--zc-navy-300);
+}
+
+.signal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--zc-font-mono);
+  font-size: 12px;
+  color: var(--zc-navy-300);
+}
+
+.signalDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--zc-amber-500);
+}
+
+@media (max-width: 720px) {
+  .footer {
+    padding: 44px 20px 28px;
+  }
+  .linkCols {
+    gap: 40px;
+  }
+}
