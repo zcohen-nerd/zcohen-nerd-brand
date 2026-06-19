@@ -98,7 +98,7 @@ export default function Navbar() {
   return (
     <header
       className={
-        styles.header + (mobileSidebar.shown ? ' navbar-sidebar--show' : '')
+        'navbar ' + styles.header + (mobileSidebar.shown ? ' navbar-sidebar--show' : '')
       }>
 
       {/* Left group: sidebar toggle (mobile docs only) + logo */}

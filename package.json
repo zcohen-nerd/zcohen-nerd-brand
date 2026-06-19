@@ -1,6 +1,6 @@
 {
   "name": "@zcohen-nerd/brand",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shared Docusaurus brand system for the zcohen-nerd ecosystem — design tokens, Infima bridge, swizzled Navbar + Footer with docs-sidebar support, and the canonical project registry.",
   "license": "MIT",
   "main": "index.js",
