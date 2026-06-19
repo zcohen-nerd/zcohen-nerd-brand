@@ -12,9 +12,10 @@ sites.
 | `index.js` | Docusaurus theme plugin — aliases the swizzled components over the classic theme. |
 | `tokens/zcohen-nerd-tokens.css` | Single source of truth for design tokens (`--zc-*`). Don't edit values without a deliberate decision. |
 | `src/infima-bridge.css` | Maps Docusaurus/Infima `--ifm-*` vars to `--zc-*` tokens. Consumers import this, not raw hex. |
-| `src/components/Navbar/` | Swizzled Navbar — ZN wordmark + **Projects ▾** ecosystem switcher. Project-aware via `customFields.brand`. |
+| `src/components/Navbar/` | Swizzled Navbar — ZN wordmark + **Projects ▾** ecosystem switcher + docs sidebar toggle. Project-aware via `customFields.brand`. |
 | `src/components/Footer/` | Swizzled Footer — navy `#0c1a33`, mono wordmark, ecosystem links, "documented in public" amber dot. |
 | `src/data/projects.js` | **Canonical project registry.** Drives the switcher, footer column, and landing grid. |
+| `src/data/defaultBrand.js` | Shared `DEFAULT_BRAND` fallback object. Imported by Navbar and Footer; consumer sites override via `customFields.brand`. |
 | `assets/` | `zcohen-nerd-logo.png` (wordmark, light surfaces) + `zcohen-nerd-icon.png` (ZN monogram, favicon/avatar). |
 
 ---
@@ -190,6 +191,62 @@ customFields: {
   },
 },
 ```
+
+---
+
+## Docs sidebar toggle (project/docs sites)
+
+On docs pages the brand Navbar renders a sidebar toggle button **left of the logo** at mobile width. It opens and closes Docusaurus's standard docs navigation sidebar. The brand hamburger (right side) still opens the project drawer — these two are independent.
+
+### How it works
+
+The toggle uses `useNavbarMobileSidebar()` from `@docusaurus/theme-common/internal`. The context is provided by `NavbarProvider` inside `@theme/Layout/Provider`, which is above the Navbar in the React tree, so the hook is always safe to call.
+
+Key properties returned by the hook:
+
+| Property | Meaning |
+|---|---|
+| `disabled` | `true` when there is no sidebar content (hub/landing pages, non-docs routes). The toggle button is not rendered when `disabled` is `true`. |
+| `shown` | `true` when the sidebar panel is currently open. |
+| `toggle` | Callback to open/close the sidebar. |
+
+The sidebar panel itself is `<NavbarMobileSidebar />` from `@theme/Navbar/MobileSidebar`, rendered at the end of `<header>`. The parent `<header>` receives the `navbar-sidebar--show` class when `shown` is `true`, which activates the classic theme's sidebar transition CSS.
+
+### Minimum `docusaurus.config.ts` for a docs site
+
+No Navbar or Footer config in `themeConfig` is needed or desired — the brand package provides both. Omitting them is intentional:
+
+```ts
+// docusaurus.config.ts
+themes: ['@zcohen-nerd/brand'],
+
+customFields: {
+  brand: {
+    isHub: false,
+    projectBadge: 'A zcohen-nerd technical guide',
+    projectUrl: 'https://example.github.io/my-guide/',
+    // ... see full schema below
+  },
+},
+
+themeConfig: {
+  // DO NOT add themeConfig.navbar or themeConfig.footer — they are unused.
+  // DO NOT add themeConfig.navbar.items — the brand Navbar ignores them.
+  colorMode: { respectPrefersColorScheme: true },
+},
+```
+
+### Current-project highlighting
+
+The `projectUrl` field in `customFields.brand` marks the current site as active in the Projects ▾ dropdown and the mobile drawer. When a project's registry `href` matches `brand.projectUrl`, the link receives `aria-current="page"` and is visually highlighted (cyan, semibold).
+
+**The match is exact string equality.** Your `projectUrl` must match the `href` in `src/data/projects.js` exactly, including the trailing slash.
+
+### Limitations
+
+- The sidebar toggle is hidden on desktop (`display: none` in CSS). On desktop, users access the sidebar via the left sidebar panel provided by the docs preset — not via a toggle button.
+- The brand Navbar does not use `themeConfig.navbar.items`, so Docusaurus-standard navbar items (search bar, external links, dropdowns) are not supported. Use `customFields.brand.navLinks` for hub nav links, or accept the project badge for docs sites.
+- Both the brand drawer and the Docusaurus sidebar can be open simultaneously. They are independent React state. This is accepted behavior.
 
 ---
 

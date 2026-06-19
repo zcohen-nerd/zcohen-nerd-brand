@@ -14,6 +14,14 @@
   -webkit-backdrop-filter: blur(8px);
 }
 
+/* Left group: sidebar toggle (mobile docs pages) + logo */
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 .logoLink {
   display: flex;
   align-items: center;
@@ -119,6 +127,13 @@
   color: var(--zc-cyan-700);
 }
 
+/* Current project in dropdown */
+.dropdownItem[aria-current='page'] {
+  background: var(--zc-color-rail);
+  color: var(--zc-cyan-700);
+  font-weight: var(--zc-weight-semibold);
+}
+
 .dropdownEmoji {
   font-size: 18px;
   line-height: 1;
@@ -129,7 +144,25 @@
   font-weight: var(--zc-weight-medium);
 }
 
-/* ── Mobile menu toggle + drawer ─────────────────────────────────────────── */
+/* ── Mobile sidebar toggle (docs pages only) ────────────────────────────── */
+/* Shown left of the logo on mobile. On hub/non-docs pages disabled=true so */
+/* the button is never rendered. Hidden unconditionally on desktop. */
+.sidebarToggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--zc-color-border-strong);
+  border-radius: var(--zc-radius-md);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ── Brand mobile menu toggle + drawer ───────────────────────────────────── */
 .menuToggle {
   display: none;
   flex-direction: column;
@@ -187,6 +220,12 @@
   color: var(--zc-cyan-700);
 }
 
+/* Current project in mobile drawer */
+.drawerLink[aria-current='page'] {
+  color: var(--zc-cyan-700);
+  font-weight: var(--zc-weight-semibold);
+}
+
 .drawerHeading {
   font-family: var(--zc-font-mono);
   font-size: 11px;
@@ -204,6 +243,9 @@
     display: none;
   }
   .menuToggle {
+    display: flex;
+  }
+  .sidebarToggle {
     display: flex;
   }
 }

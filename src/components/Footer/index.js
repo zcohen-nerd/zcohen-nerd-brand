@@ -1,6 +1,7 @@
 import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import projects from '../../data/projects';
+import DEFAULT_BRAND from '../../data/defaultBrand';
 import styles from './styles.module.css';
 
 /**
@@ -14,26 +15,6 @@ import styles from './styles.module.css';
  * Set in docusaurus.config.ts:
  *   customFields: { brand: { isHub: false, attribution: 'A zcohen-nerd technical guide by Zac Cohen.', connectLinks: [...] } }
  */
-
-const DEFAULT_BRAND = {
-  projectName: 'zcohen-nerd',
-  projectFamily: 'hub',
-  projectBadge: 'zcohen-nerd',
-  hubUrl: 'https://zcohen-nerd.github.io/',
-  projectUrl: 'https://zcohen-nerd.github.io/',
-  repoUrl: 'https://github.com/zcohen-nerd',
-  attribution: 'Practical engineering, systems thinking, and modern literacy — documented in public.',
-  isHub: true,
-  navLinks: [
-    {label: 'Work', href: '#'},
-    {label: 'Writing', href: '#'},
-    {label: 'About', href: '#'},
-  ],
-  connectLinks: [
-    {label: 'GitHub', href: 'https://github.com/zcohen-nerd'},
-    {label: 'Email', href: 'mailto:hello@zcohen-nerd.com'},
-  ],
-};
 
 export default function Footer() {
   const {siteConfig} = useDocusaurusContext();
