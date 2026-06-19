@@ -41,6 +41,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zcohen-nerd/zcohen-nerd-brand"
+    "url": "git+https://github.com/zcohen-nerd/zcohen-nerd-brand.git"
   }
 }
