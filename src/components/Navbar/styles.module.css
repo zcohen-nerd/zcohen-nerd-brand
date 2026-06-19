@@ -42,6 +42,23 @@
   color: var(--zc-cyan-700);
 }
 
+/* ── Project badge (project mode only) ──────────────────────────────────── */
+.badge {
+  font-size: 12px;
+  font-weight: var(--zc-weight-medium);
+  color: var(--zc-color-text-muted);
+  padding: 4px 10px;
+  border-radius: var(--zc-radius-pill);
+  border: 1px solid var(--zc-color-border);
+}
+
+.drawerBadge {
+  font-size: 14px;
+  font-weight: var(--zc-weight-medium);
+  color: var(--zc-color-text-muted);
+  padding: 10px 4px;
+}
+
 /* ── Projects ▾ switcher ─────────────────────────────────────────────────── */
 .switcher {
   position: relative;

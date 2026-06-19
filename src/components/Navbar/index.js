@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
+import {useDocusaurusContext} from '@docusaurus/core';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import projects from '../../data/projects';
 import styles from './styles.module.css';
@@ -6,17 +7,33 @@ import styles from './styles.module.css';
 /**
  * Shared zcohen-nerd Navbar (swizzled @theme/Navbar replacement).
  *
- * Sticky, translucent/blurred header carrying the ZN wordmark, top-level nav
- * links, and the Projects ▾ switcher — the ecosystem dropdown that is identical
- * on every property. The project list is read from the canonical registry so
- * the switcher never drifts from the grid or footer.
+ * Reads siteConfig.customFields.brand for project-aware configuration.
+ * Hub mode (isHub: true)     — renders brand.navLinks (Work / Writing / About).
+ * Project mode (isHub: false) — renders brand.projectBadge instead of nav links.
+ *
+ * Set in docusaurus.config.ts:
+ *   customFields: { brand: { isHub: false, projectBadge: 'A zcohen-nerd technical guide', ... } }
  */
 
-const NAV_LINKS = [
-  {label: 'Work', href: '#'},
-  {label: 'Writing', href: '#'},
-  {label: 'About', href: '#'},
-];
+const DEFAULT_BRAND = {
+  projectName: 'zcohen-nerd',
+  projectFamily: 'hub',
+  projectBadge: 'zcohen-nerd',
+  hubUrl: 'https://zcohen-nerd.github.io/',
+  projectUrl: 'https://zcohen-nerd.github.io/',
+  repoUrl: 'https://github.com/zcohen-nerd',
+  attribution: 'Practical engineering, systems thinking, and modern literacy — documented in public.',
+  isHub: true,
+  navLinks: [
+    {label: 'Work', href: '#'},
+    {label: 'Writing', href: '#'},
+    {label: 'About', href: '#'},
+  ],
+  connectLinks: [
+    {label: 'GitHub', href: 'https://github.com/zcohen-nerd'},
+    {label: 'Email', href: 'mailto:hello@zcohen-nerd.com'},
+  ],
+};
 
 function ProjectSwitcher() {
   const [open, setOpen] = useState(false);
@@ -76,21 +93,27 @@ function ProjectSwitcher() {
 }
 
 export default function Navbar() {
+  const {siteConfig} = useDocusaurusContext();
+  const brand = {...DEFAULT_BRAND, ...siteConfig.customFields?.brand};
+  const isHub = brand.isHub ?? true;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const logoUrl = useBaseUrl('/img/zcohen-nerd-logo.png');
 
   return (
     <header className={styles.header}>
-      <a href="https://zcohen-nerd.github.io/" className={styles.logoLink} aria-label="zcohen-nerd home">
+      <a href={brand.hubUrl} className={styles.logoLink} aria-label="zcohen-nerd home">
         <img className={styles.logo} src={logoUrl} alt="zcohen-nerd" />
       </a>
 
       <nav className={styles.nav} aria-label="Primary">
-        {NAV_LINKS.map((l) => (
-          <a key={l.label} href={l.href} className={styles.navLink}>
-            {l.label}
-          </a>
-        ))}
+        {isHub
+          ? brand.navLinks.map((l) => (
+              <a key={l.label} href={l.href} className={styles.navLink}>
+                {l.label}
+              </a>
+            ))
+          : <span className={styles.badge}>{brand.projectBadge}</span>
+        }
         <ProjectSwitcher />
       </nav>
 
@@ -113,15 +136,18 @@ export default function Navbar() {
             aria-hidden="true"
           />
           <div className={styles.drawer} role="dialog" aria-label="Menu">
-            {NAV_LINKS.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className={styles.drawerLink}
-                onClick={() => setDrawerOpen(false)}>
-                {l.label}
-              </a>
-            ))}
+            {isHub
+              ? brand.navLinks.map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    className={styles.drawerLink}
+                    onClick={() => setDrawerOpen(false)}>
+                    {l.label}
+                  </a>
+                ))
+              : <span className={styles.drawerBadge}>{brand.projectBadge}</span>
+            }
             <div className={styles.drawerHeading}>Projects</div>
             {projects.map((p) => (
               <a

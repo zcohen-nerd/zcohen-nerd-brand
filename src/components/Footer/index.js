@@ -1,22 +1,44 @@
 import React from 'react';
+import {useDocusaurusContext} from '@docusaurus/core';
 import projects from '../../data/projects';
 import styles from './styles.module.css';
 
 /**
  * Shared zcohen-nerd Footer (swizzled @theme/Footer replacement).
  *
- * Navy command-deck footer with the mono text wordmark (the navy PNG marks
- * disappear on a navy background, so the wordmark is rendered as text), the
- * ecosystem link column driven from the canonical registry, a Connect column,
- * and the "documented in public" amber signal dot.
+ * Reads siteConfig.customFields.brand for project-aware configuration.
+ * - Ecosystem column: driven by the canonical project registry (absolute URLs).
+ * - Connect column: uses brand.connectLinks (configurable per site).
+ * - Brand column tagline: uses brand.attribution (hub tagline or project attribution).
+ *
+ * Set in docusaurus.config.ts:
+ *   customFields: { brand: { isHub: false, attribution: 'A zcohen-nerd technical guide by Zac Cohen.', connectLinks: [...] } }
  */
 
-const CONNECT_LINKS = [
-  {label: 'GitHub', href: 'https://github.com/zcohen-nerd'},
-  {label: 'Email', href: 'mailto:hello@zcohen-nerd.com'},
-];
+const DEFAULT_BRAND = {
+  projectName: 'zcohen-nerd',
+  projectFamily: 'hub',
+  projectBadge: 'zcohen-nerd',
+  hubUrl: 'https://zcohen-nerd.github.io/',
+  projectUrl: 'https://zcohen-nerd.github.io/',
+  repoUrl: 'https://github.com/zcohen-nerd',
+  attribution: 'Practical engineering, systems thinking, and modern literacy — documented in public.',
+  isHub: true,
+  navLinks: [
+    {label: 'Work', href: '#'},
+    {label: 'Writing', href: '#'},
+    {label: 'About', href: '#'},
+  ],
+  connectLinks: [
+    {label: 'GitHub', href: 'https://github.com/zcohen-nerd'},
+    {label: 'Email', href: 'mailto:hello@zcohen-nerd.com'},
+  ],
+};
 
 export default function Footer() {
+  const {siteConfig} = useDocusaurusContext();
+  const brand = {...DEFAULT_BRAND, ...siteConfig.customFields?.brand};
+
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
@@ -26,8 +48,7 @@ export default function Footer() {
               zcohen<span className={styles.wordmarkAccent}>-nerd</span>
             </div>
             <p className={styles.tagline}>
-              Practical engineering, systems thinking, and modern literacy —
-              documented in public.
+              {brand.attribution}
             </p>
           </div>
 
@@ -46,7 +67,7 @@ export default function Footer() {
             <div className={styles.linkCol}>
               <div className={styles.colHeading}>Connect</div>
               <div className={styles.linkList}>
-                {CONNECT_LINKS.map((l) => (
+                {brand.connectLinks.map((l) => (
                   <a key={l.label} href={l.href} className={styles.footerLink}>
                     {l.label}
                   </a>
@@ -57,7 +78,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.bottom}>
-          <div className={styles.copyright}>© 2026 zcohen-nerd</div>
+          <div className={styles.copyright}>© {new Date().getFullYear()} zcohen-nerd</div>
           <div className={styles.signal}>
             <span className={styles.signalDot} aria-hidden="true" />
             documented in public
