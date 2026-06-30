@@ -49,7 +49,7 @@ const projects = [
   },
   {
     name: 'Literacy for Kids',
-    href: 'https://literacy-for-kids.github.io/literacy_for_kids/',
+    href: 'https://www.literacy-for-kids.com/',
     emoji: '📚',
     blurb: 'Free, open curricula teaching kids 8–12 how modern systems actually work.',
     status: STATUS_LIVE,
