@@ -25,7 +25,8 @@
     "./assets/*": "./assets/*"
   },
   "scripts": {
-    "build": "NODE_ENV=production babel src --out-dir lib --copy-files --extensions '.js'",
+    "build": "cross-env NODE_ENV=production babel src --out-dir lib --copy-files --extensions '.js'",
+    "prepare": "npm run build",
     "pack:dry": "npm run build && npm pack --dry-run"
   },
   "keywords": [
@@ -49,6 +50,7 @@
     "@babel/cli": "^8.0.1",
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
-    "@babel/preset-react": "^8.0.1"
+    "@babel/preset-react": "^8.0.1",
+    "cross-env": "^10.1.0"
   }
 }
