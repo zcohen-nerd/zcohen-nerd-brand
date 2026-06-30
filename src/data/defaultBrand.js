@@ -18,9 +18,9 @@ const DEFAULT_BRAND = {
     'Practical engineering, systems thinking, and modern literacy — documented in public.',
   isHub: true,
   navLinks: [
-    {label: 'Work', href: '#'},
-    {label: 'Writing', href: '#'},
-    {label: 'About', href: '#'},
+    {label: 'Work', href: 'https://zcohen-nerd.github.io/Portfolio/'},
+    {label: 'Writing', href: 'https://www.linkedin.com/in/zachary-cohen-nerd/recent-activity/articles/'},
+    {label: 'About', href: '/about'},
   ],
   connectLinks: [
     {label: 'GitHub', href: 'https://github.com/zcohen-nerd'},
