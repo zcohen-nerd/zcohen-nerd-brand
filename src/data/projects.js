@@ -35,6 +35,12 @@ const STATUS_IN_PROGRESS = {
   bg: 'rgba(176,111,0,.12)',
 };
 
+const STATUS_PUBLIC_REVIEW = {
+  label: 'Public Review Draft',
+  color: '#b06f00',
+  bg: 'rgba(176,111,0,.12)',
+};
+
 const projects = [
   {
     name: 'Portfolio',
@@ -63,7 +69,7 @@ const projects = [
     href: 'https://zcohen-nerd.github.io/connector-engineering-field-guide/',
     emoji: '🔌',
     blurb: 'A field guide and teaching tool for professional electrical connectors.',
-    status: STATUS_IN_PROGRESS,
+    status: STATUS_PUBLIC_REVIEW,
     accent: '#c2410c',
     accentTint: 'rgba(194,65,12,.1)',
     accentSoft: '#e9b894',
@@ -75,3 +81,4 @@ module.exports = projects;
 module.exports.projects = projects;
 module.exports.STATUS_LIVE = STATUS_LIVE;
 module.exports.STATUS_IN_PROGRESS = STATUS_IN_PROGRESS;
+module.exports.STATUS_PUBLIC_REVIEW = STATUS_PUBLIC_REVIEW;
