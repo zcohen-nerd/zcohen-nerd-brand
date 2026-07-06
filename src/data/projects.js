@@ -44,7 +44,7 @@ const STATUS_PUBLIC_REVIEW = {
 const projects = [
   {
     name: 'Portfolio',
-    href: 'https://zcohen-nerd.github.io/Portfolio/',
+    href: 'https://portfolio.zcohen-nerd.com/',
     emoji: '⚙️',
     blurb: 'Selected work in software, hardware, and the systems that connect them.',
     status: STATUS_LIVE,
