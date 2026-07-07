@@ -103,6 +103,17 @@ const projects = [
     accentSoft: '#fcd34d',
     enterColor: '#b45309',
   },
+  {
+    name: 'FusionToGitHub',
+    href: 'https://github.com/zcohen-nerd/FusionToGitHub',
+    emoji: '🐙',
+    blurb: 'One-click version control for Autodesk Fusion designs — export, commit, and branch straight to GitHub.',
+    status: STATUS_PUBLIC_BETA,
+    accent: '#2563eb',
+    accentTint: 'rgba(37,99,235,.1)',
+    accentSoft: '#93c5fd',
+    enterColor: '#1d4ed8',
+  },
 ];
 
 module.exports = projects;
