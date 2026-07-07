@@ -114,6 +114,17 @@ const projects = [
     accentSoft: '#93c5fd',
     enterColor: '#1d4ed8',
   },
+  {
+    name: 'SENTRY',
+    href: 'https://portfolio.zcohen-nerd.com/projects/sentry-v3/',
+    emoji: '🎯',
+    blurb: 'A fully automated NERF turret — a hands-on mechatronics platform for controls, sensor fusion, and system integration.',
+    status: STATUS_LIVE,
+    accent: '#e11d48',
+    accentTint: 'rgba(225,29,72,.08)',
+    accentSoft: '#fda4af',
+    enterColor: '#be123c',
+  },
 ];
 
 module.exports = projects;
