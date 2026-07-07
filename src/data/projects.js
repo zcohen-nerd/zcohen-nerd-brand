@@ -92,6 +92,17 @@ const projects = [
     accentSoft: '#c4b5fd',
     enterColor: '#6d28d9',
   },
+  {
+    name: 'Fusion System Blocks',
+    href: 'https://github.com/zcohen-nerd/Fusion_System_Blocks',
+    emoji: '🧩',
+    blurb: 'A block-diagram editor inside Autodesk Fusion — plan and validate system architecture beside the CAD model.',
+    status: STATUS_LIVE,
+    accent: '#d97706',
+    accentTint: 'rgba(217,119,6,.1)',
+    accentSoft: '#fcd34d',
+    enterColor: '#b45309',
+  },
 ];
 
 module.exports = projects;
