@@ -41,6 +41,12 @@ const STATUS_PUBLIC_REVIEW = {
   bg: 'rgba(176,111,0,.12)',
 };
 
+const STATUS_PUBLIC_BETA = {
+  label: 'Public Beta',
+  color: '#6d28d9',
+  bg: 'rgba(124,58,237,.1)',
+};
+
 const projects = [
   {
     name: 'Portfolio',
@@ -75,6 +81,17 @@ const projects = [
     accentSoft: '#e9b894',
     enterColor: '#b8460a',
   },
+  {
+    name: 'PinmapGen',
+    href: 'https://github.com/zcohen-nerd/PinmapGen',
+    emoji: '📌',
+    blurb: 'Turns Fusion 360 Electronics schematics into firmware-ready pinmaps, docs, and diagrams.',
+    status: STATUS_PUBLIC_BETA,
+    accent: '#7c3aed',
+    accentTint: 'rgba(124,58,237,.1)',
+    accentSoft: '#c4b5fd',
+    enterColor: '#6d28d9',
+  },
 ];
 
 module.exports = projects;
@@ -82,3 +99,4 @@ module.exports.projects = projects;
 module.exports.STATUS_LIVE = STATUS_LIVE;
 module.exports.STATUS_IN_PROGRESS = STATUS_IN_PROGRESS;
 module.exports.STATUS_PUBLIC_REVIEW = STATUS_PUBLIC_REVIEW;
+module.exports.STATUS_PUBLIC_BETA = STATUS_PUBLIC_BETA;
