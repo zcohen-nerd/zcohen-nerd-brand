@@ -27,7 +27,8 @@
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production babel src --out-dir lib --copy-files --extensions '.js'",
-    "pack:dry": "npm run build && npm pack --dry-run"
+    "pack:dry": "npm run build && npm pack --dry-run",
+    "test:registry": "node scripts/validate-registry.js"
   },
   "keywords": [
     "docusaurus",

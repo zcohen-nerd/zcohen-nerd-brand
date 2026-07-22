@@ -5,6 +5,13 @@ import {useNavbarMobileSidebar} from '@docusaurus/theme-common/internal';
 import NavbarMobileSidebar from '@theme/Navbar/MobileSidebar';
 import projects from '../../data/projects';
 import DEFAULT_BRAND from '../../data/defaultBrand';
+
+// Registry-driven navigation groups: featured destinations first, then
+// everything else (tools + documented projects), both in registry order.
+const NAV_GROUPS = [
+  {label: 'Featured destinations', items: projects.filter((p) => p.featured)},
+  {label: 'Tools & projects', items: projects.filter((p) => !p.featured)},
+].filter((g) => g.items.length > 0);
 import {isExternalUrl} from '../../utils/isExternal';
 import styles from './styles.module.css';
 
@@ -94,21 +101,26 @@ function ProjectSwitcher({projectUrl}) {
         Projects <span className={styles.caret} aria-hidden="true">▾</span>
       </button>
       <div id={DISCLOSURE_ID} className={styles.dropdown} hidden={!open}>
-        {projects.map((p) => (
-          <a
-            key={p.name}
-            href={p.href}
-            className={styles.dropdownItem}
-            aria-current={p.href === projectUrl ? 'page' : undefined}
-            onClick={() => close(false)}>
-            <span className={styles.dropdownEmoji} aria-hidden="true">
-              {p.emoji}
-            </span>
-            <span className={styles.dropdownName}>
-              {p.name}
-              {isExternalUrl(p.href) && <ExternalMark />}
-            </span>
-          </a>
+        {NAV_GROUPS.map((group) => (
+          <React.Fragment key={group.label}>
+            <div className={styles.dropdownGroupLabel}>{group.label}</div>
+            {group.items.map((p) => (
+              <a
+                key={p.name}
+                href={p.href}
+                className={styles.dropdownItem}
+                aria-current={p.href === projectUrl ? 'page' : undefined}
+                onClick={() => close(false)}>
+                <span className={styles.dropdownEmoji} aria-hidden="true">
+                  {p.emoji}
+                </span>
+                <span className={styles.dropdownName}>
+                  {p.name}
+                  {isExternalUrl(p.href) && <ExternalMark />}
+                </span>
+              </a>
+            ))}
+          </React.Fragment>
         ))}
       </div>
     </div>
@@ -263,17 +275,21 @@ export default function Navbar() {
             )
           : <span className={styles.drawerBadge}>{brand.projectBadge}</span>
         }
-        <div className={styles.drawerHeading}>Projects</div>
-        {projects.map((p) => (
-          <a
-            key={p.name}
-            href={p.href}
-            className={styles.drawerLink}
-            aria-current={p.href === brand.projectUrl ? 'page' : undefined}
-            onClick={() => closeDrawer(false)}>
-            <span aria-hidden="true">{p.emoji}</span> {p.name}
-            {isExternalUrl(p.href) && <ExternalMark />}
-          </a>
+        {NAV_GROUPS.map((group) => (
+          <React.Fragment key={group.label}>
+            <div className={styles.drawerHeading}>{group.label}</div>
+            {group.items.map((p) => (
+              <a
+                key={p.name}
+                href={p.href}
+                className={styles.drawerLink}
+                aria-current={p.href === brand.projectUrl ? 'page' : undefined}
+                onClick={() => closeDrawer(false)}>
+                <span aria-hidden="true">{p.emoji}</span> {p.name}
+                {isExternalUrl(p.href) && <ExternalMark />}
+              </a>
+            ))}
+          </React.Fragment>
         ))}
       </div>
 

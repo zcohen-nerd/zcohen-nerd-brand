@@ -112,6 +112,22 @@
   box-shadow: var(--zc-shadow-lg);
 }
 
+.dropdownGroupLabel {
+  font-family: var(--zc-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--zc-color-text-subtle);
+  padding: 8px 12px 4px;
+}
+
+.dropdownGroupLabel + .dropdownGroupLabel,
+.dropdownItem + .dropdownGroupLabel {
+  margin-top: 6px;
+  border-top: 1px solid var(--zc-color-border);
+  padding-top: 10px;
+}
+
 .dropdownItem {
   display: flex;
   align-items: center;
