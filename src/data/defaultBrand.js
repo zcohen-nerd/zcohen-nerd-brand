@@ -19,7 +19,7 @@ const DEFAULT_BRAND = {
   isHub: true,
   navLinks: [
     {label: 'Work', href: 'https://portfolio.zcohen-nerd.com/'},
-    {label: 'Writing', href: 'https://www.linkedin.com/in/zachary-cohen-nerd/recent-activity/articles/'},
+    {label: 'Writing', href: 'https://zcohennerd.substack.com/'},
     {label: 'About', href: '/about'},
   ],
   connectLinks: [
