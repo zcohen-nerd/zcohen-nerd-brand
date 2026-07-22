@@ -2,7 +2,18 @@ import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import projects from '../../data/projects';
 import DEFAULT_BRAND from '../../data/defaultBrand';
+import {isExternalUrl} from '../../utils/isExternal';
 import styles from './styles.module.css';
+
+function ExternalMark() {
+  return (
+    <>
+      {' '}
+      <span aria-hidden="true">↗</span>
+      <span className={styles.srOnly}>(opens external site)</span>
+    </>
+  );
+}
 
 /**
  * Shared zcohen-nerd Footer (swizzled @theme/Footer replacement).
@@ -40,6 +51,7 @@ export default function Footer() {
                 {projects.map((p) => (
                   <a key={p.name} href={p.href} className={styles.footerLink}>
                     {p.name}
+                    {isExternalUrl(p.href) && <ExternalMark />}
                   </a>
                 ))}
               </div>
@@ -51,6 +63,7 @@ export default function Footer() {
                 {brand.connectLinks.map((l) => (
                   <a key={l.label} href={l.href} className={styles.footerLink}>
                     {l.label}
+                    {isExternalUrl(l.href) && <ExternalMark />}
                   </a>
                 ))}
               </div>

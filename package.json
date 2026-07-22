@@ -10,6 +10,7 @@
     "lib/",
     "src/components/",
     "src/data/",
+    "src/utils/",
     "src/infima-bridge.css",
     "assets/"
   ],
