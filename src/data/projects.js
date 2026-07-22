@@ -125,6 +125,17 @@ const projects = [
     accentSoft: '#fda4af',
     enterColor: '#be123c',
   },
+  {
+    name: 'Writing',
+    href: 'https://zcohennerd.substack.com/',
+    emoji: '✍️',
+    blurb: 'Essays on how good engineering scales — documentation, feedback loops, and systems that outlive their creators.',
+    status: STATUS_LIVE,
+    accent: '#0d9488',
+    accentTint: 'rgba(13,148,136,.1)',
+    accentSoft: '#5eead4',
+    enterColor: '#0f766e',
+  },
 ];
 
 module.exports = projects;
