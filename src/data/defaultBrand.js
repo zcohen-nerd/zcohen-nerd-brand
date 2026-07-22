@@ -11,8 +11,8 @@ const DEFAULT_BRAND = {
   projectName: 'zcohen-nerd',
   projectFamily: 'hub',
   projectBadge: 'zcohen-nerd',
-  hubUrl: 'https://www.zcohen-nerd.com',
-  projectUrl: 'https://www.zcohen-nerd.com',
+  hubUrl: 'https://zcohen-nerd.com',
+  projectUrl: 'https://zcohen-nerd.com',
   repoUrl: 'https://github.com/zcohen-nerd',
   attribution:
     'Practical engineering, systems thinking, and modern literacy — documented in public.',
