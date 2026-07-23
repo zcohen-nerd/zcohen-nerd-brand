@@ -23,7 +23,7 @@ import styles from './styles.module.css';
  * Project mode (isHub: false) — renders brand.projectBadge instead of nav links.
  *
  * Accessibility contract:
- * - The Projects switcher is a disclosure (aria-expanded + aria-controls),
+ * - The Ecosystem switcher is a disclosure (aria-expanded + aria-controls),
  *   not an ARIA menu. Its link list is ALWAYS present in server-rendered
  *   HTML (hidden with the `hidden` attribute when closed) so crawlers and
  *   no-JS visitors can still discover every project link.
@@ -52,10 +52,12 @@ const DISCLOSURE_ID = 'zc-project-disclosure';
 const DRAWER_ID = 'zc-mobile-drawer';
 
 /**
- * Projects disclosure. Accepts projectUrl so it can mark the current project.
- * The panel is rendered unconditionally; `hidden` controls visibility.
+ * Ecosystem disclosure — the shared cross-site switcher listing every
+ * zcohen-nerd destination, tool, and system. Accepts projectUrl so it can
+ * mark the current property. The panel is rendered unconditionally;
+ * `hidden` controls visibility.
  */
-function ProjectSwitcher({projectUrl}) {
+function EcosystemSwitcher({projectUrl}) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef(null);
   const triggerRef = useRef(null);
@@ -98,7 +100,7 @@ function ProjectSwitcher({projectUrl}) {
         aria-expanded={open}
         aria-controls={DISCLOSURE_ID}
         onClick={() => setOpen((v) => !v)}>
-        Projects <span className={styles.caret} aria-hidden="true">▾</span>
+        Ecosystem <span className={styles.caret} aria-hidden="true">▾</span>
       </button>
       <div id={DISCLOSURE_ID} className={styles.dropdown} hidden={!open}>
         {NAV_GROUPS.map((group) => (
@@ -231,7 +233,7 @@ export default function Navbar() {
           ? brand.navLinks.map((l) => renderNavLink(l, styles.navLink))
           : <span className={styles.badge}>{brand.projectBadge}</span>
         }
-        <ProjectSwitcher projectUrl={brand.projectUrl} />
+        <EcosystemSwitcher projectUrl={brand.projectUrl} />
       </nav>
 
       {/* Brand mobile drawer toggle (opens project navigation) */}

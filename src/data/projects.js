@@ -132,7 +132,8 @@ const projects = [
     category: 'tool',
     featured: false,
     order: 60,
-    status: STATUS_LIVE,
+    // v0.1.x with expected rough edges — Public Beta, not Live.
+    status: STATUS_PUBLIC_BETA,
     accent: '#d97706',
     accentTint: 'rgba(217,119,6,.1)',
     accentSoft: '#fcd34d',

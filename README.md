@@ -12,7 +12,7 @@ sites.
 | `index.js` | Docusaurus theme plugin — aliases the swizzled components over the classic theme. |
 | `tokens/zcohen-nerd-tokens.css` | Single source of truth for design tokens (`--zc-*`). Don't edit values without a deliberate decision. |
 | `src/infima-bridge.css` | Maps Docusaurus/Infima `--ifm-*` vars to `--zc-*` tokens. Consumers import this, not raw hex. |
-| `src/components/Navbar/` | Swizzled Navbar — ZN wordmark + **Projects ▾** ecosystem switcher + docs sidebar toggle. Project-aware via `customFields.brand`. |
+| `src/components/Navbar/` | Swizzled Navbar — ZN wordmark + **Ecosystem ▾** disclosure (the shared cross-site switcher) + docs sidebar toggle. Project-aware via `customFields.brand`. |
 | `src/components/Footer/` | Swizzled Footer — navy `#0c1a33`, mono wordmark, ecosystem links, "documented in public" amber dot. |
 | `src/data/projects.js` | **Canonical project registry.** Drives the switcher, footer column, and landing grid. |
 | `src/data/defaultBrand.js` | Shared `DEFAULT_BRAND` fallback object. Imported by Navbar and Footer; consumer sites override via `customFields.brand`. |
@@ -237,7 +237,7 @@ themeConfig: {
 
 ### Current-project highlighting
 
-The `projectUrl` field in `customFields.brand` marks the current site as active in the Projects ▾ dropdown and the mobile drawer. When a project's registry `href` matches `brand.projectUrl`, the link receives `aria-current="page"` and is visually highlighted (cyan, semibold).
+The `projectUrl` field in `customFields.brand` marks the current site as active in the Ecosystem ▾ disclosure and the mobile drawer. When a project's registry `href` matches `brand.projectUrl`, the link receives `aria-current="page"` and is visually highlighted (cyan, semibold).
 
 **The match is exact string equality.** Your `projectUrl` must match the `href` in `src/data/projects.js` exactly, including the trailing slash.
 

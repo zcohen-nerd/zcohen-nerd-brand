@@ -36,6 +36,20 @@ for (const p of projects) {
   }
 }
 
+// Fusion System Blocks is a v0.1.x release — it must stay Public Beta.
+// This guards against an accidental return to Live.
+const fsb = projects.find((p) => p.name === 'Fusion System Blocks');
+check('Fusion System Blocks uses Public Beta status', fsb?.status?.label === 'Public Beta', `got "${fsb?.status?.label}"`);
+
+// Navigation grouping invariants: both groups must be non-empty and the
+// shared Navbar must carry the two group labels.
+check('featured group non-empty', projects.some((p) => p.featured));
+check('tools/projects group non-empty', projects.some((p) => !p.featured));
+const navbarSrc = require('fs').readFileSync(require('path').join(__dirname, '..', 'src', 'components', 'Navbar', 'index.js'), 'utf8');
+check('Navbar has "Featured destinations" group', navbarSrc.includes('Featured destinations'));
+check('Navbar has "Tools & projects" group', navbarSrc.includes('Tools & projects'));
+check('Navbar disclosure labeled Ecosystem', navbarSrc.includes('Ecosystem <span'));
+
 if (failures.length) {
   console.error(`\n${failures.length} registry validation failure(s).`);
   process.exit(1);
