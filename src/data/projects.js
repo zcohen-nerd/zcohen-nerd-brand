@@ -29,19 +29,19 @@
 
 const STATUS_LIVE = {
   label: 'Live',
-  color: '#2e8555',
+  color: '#277048',
   bg: 'rgba(46,133,85,.1)',
 };
 
 const STATUS_IN_PROGRESS = {
   label: 'In progress',
-  color: '#b06f00',
+  color: '#8a5600',
   bg: 'rgba(176,111,0,.12)',
 };
 
 const STATUS_PUBLIC_REVIEW = {
   label: 'Public Review Draft',
-  color: '#b06f00',
+  color: '#8a5600',
   bg: 'rgba(176,111,0,.12)',
 };
 
@@ -50,7 +50,7 @@ const STATUS_PUBLIC_REVIEW = {
 // the project's own canonical release label.
 const STATUS_SOURCE_VERIFIED = {
   label: 'v1.0 — Source-Verified Release',
-  color: '#2e8555',
+  color: '#277048',
   bg: 'rgba(46,133,85,.1)',
 };
 
@@ -75,7 +75,7 @@ const projects = [
     accent: '#10b8d8', // cyan-500
     accentTint: '#eaf9fc', // cyan-050
     accentSoft: '#8fdcec', // cyan-300
-    enterColor: '#0b7e96', // cyan-700
+    enterColor: '#0a7184', // cyan-700
   },
   {
     name: 'Literacy for Kids',
