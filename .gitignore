@@ -4,3 +4,8 @@ lib/
 *.log
 .cache/
 *.tgz
+
+# Quality-gate tooling output
+coverage/
+playwright-report/
+test-results/

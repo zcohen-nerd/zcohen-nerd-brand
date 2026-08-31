@@ -2,7 +2,10 @@
   "name": "@zcohen-nerd/brand",
   "version": "1.1.0",
   "description": "Shared Docusaurus brand system for the zcohen-nerd ecosystem — design tokens, Infima bridge, swizzled Navbar + Footer with docs-sidebar support, and the canonical project registry.",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "main": "index.js",
   "files": [
     "index.js",
@@ -31,7 +34,27 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:registry": "node scripts/validate-registry.js",
+    "format": "prettier --write .",
+    "format:check": "node scripts/changed-files.mjs --run \"prettier --check\"",
+    "lint": "eslint .",
+    "lint:md": "node scripts/changed-files.mjs --ext .md,.mdx --run \"markdownlint-cli2\"",
+    "lint:md:all": "markdownlint-cli2 \"**/*.md\" \"**/*.mdx\"",
+    "validate": "npm run test:registry",
+    "verify": "npm run format:check && npm run lint && npm run lint:md && npm run test:registry && npm run test",
     "prepublishOnly": "npm run test:registry && npm run test && npm run build"
+  },
+  "lint-staged": {
+    "*.{js,jsx,mjs,cjs}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{ts,tsx,json,jsonc,css,yml,yaml}": [
+      "prettier --write"
+    ],
+    "*.{md,mdx}": [
+      "prettier --write",
+      "markdownlint-cli2 --fix"
+    ]
   },
   "keywords": [
     "docusaurus",
@@ -42,7 +65,7 @@
     "brand"
   ],
   "peerDependencies": {
-    "@docusaurus/core": ">=3.0.0",
+    "@docusaurus/core": ">=3.10.2",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
@@ -55,12 +78,21 @@
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
     "@babel/preset-react": "^8.0.1",
+    "@eslint/js": "^9.14.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "cross-env": "^10.1.0",
+    "eslint": "^9.14.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "globals": "^15.12.0",
     "jsdom": "^25.0.1",
+    "lint-staged": "^15.2.10",
+    "markdownlint-cli2": "^0.23.0",
+    "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vitest": "^2.1.4"
