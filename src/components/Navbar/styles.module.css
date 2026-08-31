@@ -315,7 +315,7 @@
 /* ── Keyboard focus ─────────────────────────────────────────────────────── */
 /* Brand-cyan-700 focus ring on the light navbar surface. cyan-500 (#10b8d8)
    is only ~2.4:1 on white and fails WCAG 2.2 SC 1.4.11 (3:1 for non-text);
-   cyan-700 (#0b7e96) is ~4.8:1. Never remove the indicator without a
+   cyan-700 (#0a7184) is ~5.4:1. Never remove the indicator without a
    replacement of at least equal contrast. */
 .navLink:focus-visible,
 .logoLink:focus-visible,

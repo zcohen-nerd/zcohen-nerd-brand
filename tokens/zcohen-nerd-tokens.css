@@ -31,7 +31,7 @@
   --zc-navy-300: #6f8bb4;
   --zc-navy-200: #aebed1;
 
-  --zc-cyan-700: #0b7e96;
+  --zc-cyan-700: #0a7184;
   --zc-cyan-600: #0e9fbd;
   --zc-cyan-500: #10b8d8;  /* core brand accent — the "N" + rule */
   --zc-cyan-400: #4fcde4;
@@ -50,7 +50,7 @@
   --zc-gray-300: #dadde1;
   --zc-gray-400: #ccd0d5;
   --zc-gray-500: #bec3c9;
-  --zc-gray-600: #8d949e;
+  --zc-gray-600: #6b7280;
   --zc-gray-700: #606770;
   --zc-gray-800: #444950;
   --zc-gray-900: #1c1e21;
@@ -83,9 +83,9 @@
   --zc-color-link-hover: var(--zc-navy-700);
 
   /* Feedback / status (shared across all themes) */
-  --zc-color-success: #2e8555;
+  --zc-color-success: #277048;
   --zc-color-info:    #1b75bb;
-  --zc-color-warning: #b06f00;
+  --zc-color-warning: #8a5600;
   --zc-color-danger:  #c0392b;
   --zc-color-note:    var(--zc-gray-700);
 
@@ -209,7 +209,7 @@
   --zc-color-accent:         #10b8d8;  /* parent cyan, intensified by mono UI */
   --zc-color-accent-hover:   #0e9fbd;
   --zc-color-signal:         #f8c840;
-  --zc-color-link:           #0b7e96;
+  --zc-color-link:           #0a7184;
   --zc-color-link-hover:     #102040;
   --zc-color-footer-bg:      #0a1428;
 }
@@ -220,7 +220,7 @@
   --zc-color-primary-hover:  #4f46e5;
   --zc-color-primary-active: #3730a3;
   --zc-color-accent:         #0e9fbd;
-  --zc-color-accent-hover:   #0b7e96;
+  --zc-color-accent-hover:   #0a7184;
   --zc-color-link:           #4338ca;
   --zc-color-link-hover:     #3730a3;
   --zc-color-footer-bg:      #1e1b4b;
