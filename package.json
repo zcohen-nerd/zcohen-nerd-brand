@@ -1,6 +1,6 @@
 {
   "name": "@zcohen-nerd/brand",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Shared Docusaurus brand system for the zcohen-nerd ecosystem — design tokens, Infima bridge, swizzled Navbar + Footer with docs-sidebar support, and the canonical project registry.",
   "license": "MIT",
   "main": "index.js",
@@ -28,8 +28,10 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production babel src --out-dir lib --copy-files --extensions '.js'",
     "pack:dry": "npm run build && npm pack --dry-run",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:registry": "node scripts/validate-registry.js",
-    "prepublishOnly": "npm run test:registry && npm run build"
+    "prepublishOnly": "npm run test:registry && npm run test && npm run build"
   },
   "keywords": [
     "docusaurus",
@@ -53,6 +55,14 @@
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
     "@babel/preset-react": "^8.0.1",
-    "cross-env": "^10.1.0"
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "cross-env": "^10.1.0",
+    "jsdom": "^25.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vitest": "^2.1.4"
   }
 }

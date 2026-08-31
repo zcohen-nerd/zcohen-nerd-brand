@@ -5,7 +5,13 @@
 const projects = require('../src/data/projects');
 const {CATEGORIES} = require('../src/data/projects');
 
-const ALLOWED_STATUS = ['Live', 'In progress', 'Public Review Draft', 'Public Beta'];
+const ALLOWED_STATUS = [
+  'Live',
+  'In progress',
+  'Public Review Draft',
+  'Public Beta',
+  'v1.0 — Source-Verified Release',
+];
 const FORBIDDEN_URLS = [
   'zcohen-nerd.github.io/Portfolio',
   'literacy-for-kids.github.io',
@@ -45,10 +51,18 @@ check('Fusion System Blocks uses Public Beta status', fsb?.status?.label === 'Pu
 // shared Navbar must carry the two group labels.
 check('featured group non-empty', projects.some((p) => p.featured));
 check('tools/projects group non-empty', projects.some((p) => !p.featured));
-const navbarSrc = require('fs').readFileSync(require('path').join(__dirname, '..', 'src', 'components', 'Navbar', 'index.js'), 'utf8');
-check('Navbar has "Featured destinations" group', navbarSrc.includes('Featured destinations'));
-check('Navbar has "Tools & projects" group', navbarSrc.includes('Tools & projects'));
-check('Navbar disclosure labeled Ecosystem', navbarSrc.includes('Ecosystem <span'));
+const fs = require('fs');
+const path = require('path');
+const readNav = (f) =>
+  fs.readFileSync(path.join(__dirname, '..', 'src', 'components', 'Navbar', f), 'utf8');
+// The group labels + disclosure trigger live in EcosystemSwitcher.js (imported
+// by Navbar/index.js). Check across both files.
+const switcherSrc = readNav('EcosystemSwitcher.js');
+const navbarSrc = readNav('index.js');
+check('Navbar has "Featured destinations" group', (navbarSrc + switcherSrc).includes('Featured destinations'));
+check('Navbar has "Tools & projects" group', (navbarSrc + switcherSrc).includes('Tools & projects'));
+check('Navbar disclosure labeled Ecosystem', switcherSrc.includes('Ecosystem <span'));
+check('Navbar wires in the extracted EcosystemSwitcher', navbarSrc.includes("from './EcosystemSwitcher'"));
 
 if (failures.length) {
   console.error(`\n${failures.length} registry validation failure(s).`);

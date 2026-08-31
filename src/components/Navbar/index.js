@@ -3,16 +3,14 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import {useNavbarMobileSidebar} from '@docusaurus/theme-common/internal';
 import NavbarMobileSidebar from '@theme/Navbar/MobileSidebar';
-import projects from '../../data/projects';
 import DEFAULT_BRAND from '../../data/defaultBrand';
-
-// Registry-driven navigation groups: featured destinations first, then
-// everything else (tools + documented projects), both in registry order.
-const NAV_GROUPS = [
-  {label: 'Featured destinations', items: projects.filter((p) => p.featured)},
-  {label: 'Tools & projects', items: projects.filter((p) => !p.featured)},
-].filter((g) => g.items.length > 0);
 import {isExternalUrl} from '../../utils/isExternal';
+import {nextTrapTarget, getFocusable} from './focusTrap';
+import EcosystemSwitcher, {
+  NAV_GROUPS,
+  DISCLOSURE_ID,
+  ExternalMark,
+} from './EcosystemSwitcher';
 import styles from './styles.module.css';
 
 /**
@@ -27,107 +25,22 @@ import styles from './styles.module.css';
  *   not an ARIA menu. Its link list is ALWAYS present in server-rendered
  *   HTML (hidden with the `hidden` attribute when closed) so crawlers and
  *   no-JS visitors can still discover every project link.
- * - The mobile drawer is a dialog (aria-modal) with focus trap, Escape to
- *   close, focus return to the trigger, and body scroll lock. Its content
- *   is also always present in server-rendered HTML.
+ * - The mobile drawer is a dialog (aria-modal) with a visible close control,
+ *   focus trap, Escape to close, focus return to the trigger, and body scroll
+ *   lock. Its content is also always present in server-rendered HTML.
  * - External links (outside the zcohen-nerd.com family) carry a visible ↗
  *   plus screen-reader text.
  *
  * On mobile docs pages, renders a sidebar toggle (left of logo) that opens the
  * Docusaurus docs sidebar. The brand hamburger (right) opens the project drawer.
  * These are independent; both can be open simultaneously.
+ *
+ * Discrete controls (toggles, disclosure trigger, drawer/dropdown links, logo)
+ * present a >=44x44 CSS-px hit area; visual density is held by trimming header
+ * padding, not by enlarging text. Inline prose links are unaffected.
  */
 
-function ExternalMark() {
-  return (
-    <>
-      {' '}
-      <span aria-hidden="true">↗</span>
-      <span className={styles.srOnly}>(opens external site)</span>
-    </>
-  );
-}
-
-const DISCLOSURE_ID = 'zc-project-disclosure';
 const DRAWER_ID = 'zc-mobile-drawer';
-
-/**
- * Ecosystem disclosure — the shared cross-site switcher listing every
- * zcohen-nerd destination, tool, and system. Accepts projectUrl so it can
- * mark the current property. The panel is rendered unconditionally;
- * `hidden` controls visibility.
- */
-function EcosystemSwitcher({projectUrl}) {
-  const [open, setOpen] = useState(false);
-  const rootRef = useRef(null);
-  const triggerRef = useRef(null);
-
-  const close = useCallback((refocus) => {
-    setOpen(false);
-    if (refocus) {
-      triggerRef.current?.focus();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!open) {
-      return undefined;
-    }
-    function onClick(e) {
-      if (rootRef.current && !rootRef.current.contains(e.target)) {
-        close(false);
-      }
-    }
-    function onKey(e) {
-      if (e.key === 'Escape') {
-        close(true);
-      }
-    }
-    document.addEventListener('mousedown', onClick);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onClick);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [open, close]);
-
-  return (
-    <div className={styles.switcher} ref={rootRef}>
-      <button
-        type="button"
-        ref={triggerRef}
-        className={styles.switcherPill}
-        aria-expanded={open}
-        aria-controls={DISCLOSURE_ID}
-        onClick={() => setOpen((v) => !v)}>
-        Ecosystem <span className={styles.caret} aria-hidden="true">▾</span>
-      </button>
-      <div id={DISCLOSURE_ID} className={styles.dropdown} hidden={!open}>
-        {NAV_GROUPS.map((group) => (
-          <React.Fragment key={group.label}>
-            <div className={styles.dropdownGroupLabel}>{group.label}</div>
-            {group.items.map((p) => (
-              <a
-                key={p.name}
-                href={p.href}
-                className={styles.dropdownItem}
-                aria-current={p.href === projectUrl ? 'page' : undefined}
-                onClick={() => close(false)}>
-                <span className={styles.dropdownEmoji} aria-hidden="true">
-                  {p.emoji}
-                </span>
-                <span className={styles.dropdownName}>
-                  {p.name}
-                  {isExternalUrl(p.href) && <ExternalMark />}
-                </span>
-              </a>
-            ))}
-          </React.Fragment>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export default function Navbar() {
   const {siteConfig} = useDocusaurusContext();
@@ -150,15 +63,14 @@ export default function Navbar() {
     }
   }, []);
 
-  // Drawer open: lock body scroll and move focus to the first link.
+  // Drawer open: lock body scroll and move focus to the first control.
   useEffect(() => {
     if (!drawerOpen) {
       return undefined;
     }
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    const first = drawerRef.current?.querySelector('a[href], button');
-    first?.focus();
+    getFocusable(drawerRef.current)[0]?.focus();
     return () => {
       document.body.style.overflow = prevOverflow;
     };
@@ -174,20 +86,10 @@ export default function Navbar() {
     if (e.key !== 'Tab') {
       return;
     }
-    const focusables = drawerRef.current?.querySelectorAll(
-      'a[href], button:not([disabled])',
-    );
-    if (!focusables || focusables.length === 0) {
-      return;
-    }
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
+    const target = nextTrapTarget(drawerRef.current, document.activeElement, e.shiftKey);
+    if (target) {
       e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
+      target.focus();
     }
   }
 
@@ -227,7 +129,7 @@ export default function Navbar() {
         </a>
       </div>
 
-      {/* Primary nav: hub links or project badge, plus Projects switcher */}
+      {/* Primary nav: hub links or project badge, plus Ecosystem switcher */}
       <nav className={styles.nav} aria-label="Primary">
         {isHub
           ? brand.navLinks.map((l) => renderNavLink(l, styles.navLink))
@@ -271,6 +173,13 @@ export default function Navbar() {
         aria-label="Menu"
         hidden={!drawerOpen}
         onKeyDown={onDrawerKeyDown}>
+        <button
+          type="button"
+          className={styles.drawerClose}
+          aria-label="Close menu"
+          onClick={() => closeDrawer(true)}>
+          <span aria-hidden="true">×</span>
+        </button>
         {isHub
           ? brand.navLinks.map((l) =>
               renderNavLink(l, styles.drawerLink, () => closeDrawer(false)),

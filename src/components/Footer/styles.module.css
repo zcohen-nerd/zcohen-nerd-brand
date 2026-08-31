@@ -57,10 +57,17 @@
 .linkList {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 2px; /* trimmed: row height now comes from .footerLink padding */
 }
 
 .footerLink {
+  display: inline-flex;
+  align-items: center;
+  /* ~40px comfortable tap row without ballooning an 8+ item column;
+     density is held by trimming the list gap, not by larger text. */
+  min-height: 40px;
+  padding: 4px 6px;
+  margin-inline: -6px;
   font-size: 14px;
   color: var(--zc-navy-200);
   text-decoration: none;
