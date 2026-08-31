@@ -1,4 +1,3 @@
-import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import projects from '../../data/projects';
 import DEFAULT_BRAND from '../../data/defaultBrand';
@@ -39,9 +38,7 @@ export default function Footer() {
             <div className={styles.wordmark}>
               zcohen<span className={styles.wordmarkAccent}>-nerd</span>
             </div>
-            <p className={styles.tagline}>
-              {brand.attribution}
-            </p>
+            <p className={styles.tagline}>{brand.attribution}</p>
           </div>
 
           <div className={styles.linkCols}>
@@ -72,7 +69,9 @@ export default function Footer() {
         </div>
 
         <div className={styles.bottom}>
-          <div className={styles.copyright}>© {new Date().getFullYear()} zcohen-nerd</div>
+          <div className={styles.copyright}>
+            © {new Date().getFullYear()} zcohen-nerd
+          </div>
           <div className={styles.signal}>
             <span className={styles.signalDot} aria-hidden="true" />
             documented in public

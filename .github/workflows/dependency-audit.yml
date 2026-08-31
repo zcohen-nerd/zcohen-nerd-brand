@@ -38,4 +38,7 @@ jobs:
         run: npm ci --no-audit --no-fund
 
       - name: Audit gate
-        run: npm audit --json | node scripts/audit-ci.mjs
+        # The script runs `npm audit --json` itself and tolerates its non-zero
+        # exit (npm exits 1 whenever any advisory exists). Piping trips
+        # `pipefail` before the gate's own severity/exposure triage can run.
+        run: node scripts/audit-ci.mjs

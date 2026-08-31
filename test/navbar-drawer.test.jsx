@@ -1,6 +1,11 @@
-import React from 'react';
 import {describe, it, expect, afterEach} from 'vitest';
-import {render, screen, cleanup, fireEvent, within} from '@testing-library/react';
+import {
+  render,
+  screen,
+  cleanup,
+  fireEvent,
+  within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Navbar from '../src/components/Navbar';
 import projects from '../src/data/projects';
@@ -27,7 +32,10 @@ describe('mobile drawer — dialog semantics', () => {
     expect(drawer()).toHaveAttribute('aria-modal', 'true');
     expect(drawer()).toHaveAttribute('aria-label', 'Menu');
     expect(drawer()).toHaveAttribute('hidden');
-    expect(drawerTrigger()).toHaveAttribute('aria-controls', 'zc-mobile-drawer');
+    expect(drawerTrigger()).toHaveAttribute(
+      'aria-controls',
+      'zc-mobile-drawer',
+    );
     expect(drawerTrigger()).toHaveAttribute('aria-expanded', 'false');
   });
 
@@ -49,7 +57,9 @@ describe('mobile drawer — dialog semantics', () => {
     const user = userEvent.setup();
     render(<Navbar />);
     await user.click(drawerTrigger());
-    await user.click(within(drawer()).getByRole('button', {name: 'Close menu'}));
+    await user.click(
+      within(drawer()).getByRole('button', {name: 'Close menu'}),
+    );
 
     expect(drawer()).toHaveAttribute('hidden');
     expect(document.body.style.overflow).toBe('');
@@ -72,7 +82,9 @@ describe('mobile drawer — dialog semantics', () => {
     render(<Navbar />);
     await user.click(drawerTrigger());
 
-    const focusables = drawer().querySelectorAll('a[href], button:not([disabled])');
+    const focusables = drawer().querySelectorAll(
+      'a[href], button:not([disabled])',
+    );
     const first = focusables[0];
     const last = focusables[focusables.length - 1];
 

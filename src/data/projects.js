@@ -67,7 +67,8 @@ const projects = [
     name: 'Portfolio',
     href: 'https://portfolio.zcohen-nerd.com/',
     emoji: '⚙️',
-    blurb: 'Selected work in software, hardware, and the systems that connect them.',
+    blurb:
+      'Selected work in software, hardware, and the systems that connect them.',
     category: 'destination',
     featured: true,
     order: 10,
@@ -81,7 +82,8 @@ const projects = [
     name: 'Literacy for Kids',
     href: 'https://www.literacy-for-kids.com/',
     emoji: '📚',
-    blurb: 'Free, open curricula teaching kids 8–12 how modern systems actually work.',
+    blurb:
+      'Free, open curricula teaching kids 8–12 how modern systems actually work.',
     category: 'destination',
     featured: true,
     order: 20,
@@ -95,7 +97,8 @@ const projects = [
     name: 'Connector Guide',
     href: 'https://zcohen-nerd.github.io/connector-engineering-field-guide/',
     emoji: '🔌',
-    blurb: 'A two-track field guide to electrical connectors — from hobby projects to engineered hardware.',
+    blurb:
+      'A two-track field guide to electrical connectors — from hobby projects to engineered hardware.',
     category: 'destination',
     featured: true,
     order: 30,
@@ -109,7 +112,8 @@ const projects = [
     name: 'Writing',
     href: 'https://zcohennerd.substack.com/',
     emoji: '✍️',
-    blurb: 'Essays on how good engineering scales — documentation, feedback loops, and systems that outlive their creators.',
+    blurb:
+      'Essays on how good engineering scales — documentation, feedback loops, and systems that outlive their creators.',
     category: 'destination',
     featured: true,
     order: 40,
@@ -123,7 +127,8 @@ const projects = [
     name: 'PinmapGen',
     href: 'https://github.com/zcohen-nerd/PinmapGen',
     emoji: '📌',
-    blurb: 'Turns Fusion 360 Electronics schematics into firmware-ready pinmaps, docs, and diagrams.',
+    blurb:
+      'Turns Fusion 360 Electronics schematics into firmware-ready pinmaps, docs, and diagrams.',
     category: 'tool',
     featured: false,
     order: 50,
@@ -137,7 +142,8 @@ const projects = [
     name: 'Fusion System Blocks',
     href: 'https://github.com/zcohen-nerd/Fusion_System_Blocks',
     emoji: '🧩',
-    blurb: 'A block-diagram editor inside Autodesk Fusion — plan and validate system architecture beside the CAD model.',
+    blurb:
+      'A block-diagram editor inside Autodesk Fusion — plan and validate system architecture beside the CAD model.',
     category: 'tool',
     featured: false,
     order: 60,
@@ -152,7 +158,8 @@ const projects = [
     name: 'FusionToGitHub',
     href: 'https://github.com/zcohen-nerd/FusionToGitHub',
     emoji: '🐙',
-    blurb: 'One-click version control for Autodesk Fusion designs — export, commit, and branch straight to GitHub.',
+    blurb:
+      'One-click version control for Autodesk Fusion designs — export, commit, and branch straight to GitHub.',
     category: 'tool',
     featured: false,
     order: 70,
@@ -166,7 +173,8 @@ const projects = [
     name: 'SENTRY',
     href: 'https://portfolio.zcohen-nerd.com/projects/sentry-v3/',
     emoji: '🎯',
-    blurb: 'A fully automated NERF turret — a hands-on mechatronics platform for controls, sensor fusion, and system integration.',
+    blurb:
+      'A fully automated NERF turret — a hands-on mechatronics platform for controls, sensor fusion, and system integration.',
     category: 'project',
     featured: false,
     order: 80,

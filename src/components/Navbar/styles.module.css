@@ -144,7 +144,9 @@
   border-radius: var(--zc-radius-md);
   color: var(--zc-color-text-body);
   text-decoration: none;
-  transition: background var(--zc-transition-fast), color var(--zc-transition-fast);
+  transition:
+    background var(--zc-transition-fast),
+    color var(--zc-transition-fast);
 }
 
 .dropdownItem:hover {
