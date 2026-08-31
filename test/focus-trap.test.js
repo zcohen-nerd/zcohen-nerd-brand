@@ -30,22 +30,36 @@ describe('focusTrap', () => {
   });
 
   it('Tab on the last element wraps to the first', () => {
-    const target = nextTrapTarget(container, document.getElementById('last'), false);
+    const target = nextTrapTarget(
+      container,
+      document.getElementById('last'),
+      false,
+    );
     expect(target?.id).toBe('close');
   });
 
   it('Shift+Tab on the first element wraps to the last', () => {
-    const target = nextTrapTarget(container, document.getElementById('close'), true);
+    const target = nextTrapTarget(
+      container,
+      document.getElementById('close'),
+      true,
+    );
     expect(target?.id).toBe('last');
   });
 
   it('Tab in the middle returns null (let the browser handle it)', () => {
-    expect(nextTrapTarget(container, document.getElementById('a1'), false)).toBeNull();
-    expect(nextTrapTarget(container, document.getElementById('a2'), true)).toBeNull();
+    expect(
+      nextTrapTarget(container, document.getElementById('a1'), false),
+    ).toBeNull();
+    expect(
+      nextTrapTarget(container, document.getElementById('a2'), true),
+    ).toBeNull();
   });
 
   it('returns null when the container has no focusable children', () => {
     document.body.innerHTML = '<div id="empty"><span>text</span></div>';
-    expect(nextTrapTarget(document.getElementById('empty'), null, false)).toBeNull();
+    expect(
+      nextTrapTarget(document.getElementById('empty'), null, false),
+    ).toBeNull();
   });
 });

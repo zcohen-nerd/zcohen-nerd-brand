@@ -24,7 +24,10 @@ const DEFAULT_BRAND = {
   ],
   connectLinks: [
     {label: 'GitHub', href: 'https://github.com/zcohen-nerd'},
-    {label: 'LinkedIn', href: 'https://www.linkedin.com/in/zachary-cohen-nerd/'},
+    {
+      label: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/zachary-cohen-nerd/',
+    },
     {label: 'Email', href: 'mailto:zachary@zcohen-nerd.com'},
   ],
 };

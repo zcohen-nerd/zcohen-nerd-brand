@@ -86,7 +86,11 @@ export default function Navbar() {
     if (e.key !== 'Tab') {
       return;
     }
-    const target = nextTrapTarget(drawerRef.current, document.activeElement, e.shiftKey);
+    const target = nextTrapTarget(
+      drawerRef.current,
+      document.activeElement,
+      e.shiftKey,
+    );
     if (target) {
       e.preventDefault();
       target.focus();
@@ -108,113 +112,124 @@ export default function Navbar() {
   // those position:fixed children (which would clamp their height to 59px).
   return (
     <div className={mobileSidebar.shown ? 'navbar-sidebar--show' : undefined}>
-    <header className={'navbar ' + styles.header}>
+      <header className={'navbar ' + styles.header}>
+        {/* Left group: sidebar toggle (mobile docs only) + logo */}
+        <div className={styles.headerLeft}>
+          {!mobileSidebar.disabled && (
+            <button
+              type="button"
+              className={styles.sidebarToggle}
+              aria-label="Toggle docs sidebar"
+              aria-expanded={mobileSidebar.shown}
+              onClick={mobileSidebar.toggle}
+            >
+              <span className={styles.menuBar} />
+              <span className={styles.menuBar} />
+              <span className={styles.menuBar} />
+            </button>
+          )}
+          <a
+            href={brand.hubUrl}
+            className={styles.logoLink}
+            aria-label="zcohen-nerd home"
+          >
+            <img className={styles.logo} src={logoUrl} alt="zcohen-nerd" />
+          </a>
+        </div>
 
-      {/* Left group: sidebar toggle (mobile docs only) + logo */}
-      <div className={styles.headerLeft}>
-        {!mobileSidebar.disabled && (
-          <button
-            type="button"
-            className={styles.sidebarToggle}
-            aria-label="Toggle docs sidebar"
-            aria-expanded={mobileSidebar.shown}
-            onClick={mobileSidebar.toggle}>
-            <span className={styles.menuBar} />
-            <span className={styles.menuBar} />
-            <span className={styles.menuBar} />
-          </button>
-        )}
-        <a href={brand.hubUrl} className={styles.logoLink} aria-label="zcohen-nerd home">
-          <img className={styles.logo} src={logoUrl} alt="zcohen-nerd" />
-        </a>
-      </div>
+        {/* Primary nav: hub links or project badge, plus Ecosystem switcher */}
+        <nav className={styles.nav} aria-label="Primary">
+          {isHub ? (
+            brand.navLinks.map((l) => renderNavLink(l, styles.navLink))
+          ) : (
+            <span className={styles.badge}>{brand.projectBadge}</span>
+          )}
+          <EcosystemSwitcher projectUrl={brand.projectUrl} />
+        </nav>
 
-      {/* Primary nav: hub links or project badge, plus Ecosystem switcher */}
-      <nav className={styles.nav} aria-label="Primary">
-        {isHub
-          ? brand.navLinks.map((l) => renderNavLink(l, styles.navLink))
-          : <span className={styles.badge}>{brand.projectBadge}</span>
-        }
-        <EcosystemSwitcher projectUrl={brand.projectUrl} />
-      </nav>
-
-      {/* Brand mobile drawer toggle (opens project navigation) */}
-      <button
-        type="button"
-        ref={drawerTriggerRef}
-        className={styles.menuToggle}
-        aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
-        aria-expanded={drawerOpen}
-        aria-controls={DRAWER_ID}
-        onClick={() => (drawerOpen ? closeDrawer(true) : setDrawerOpen(true))}>
-        <span className={styles.menuBar} />
-        <span className={styles.menuBar} />
-        <span className={styles.menuBar} />
-      </button>
-
-      {/* Scrim (presentation only; rendered while open) */}
-      {drawerOpen && (
-        <div
-          className={styles.scrim}
-          onClick={() => closeDrawer(true)}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Brand mobile drawer (nav links + project switcher). Always present
-          in the HTML so links survive without JavaScript; `hidden` gates
-          visibility. */}
-      <div
-        id={DRAWER_ID}
-        ref={drawerRef}
-        className={styles.drawer}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Menu"
-        hidden={!drawerOpen}
-        onKeyDown={onDrawerKeyDown}>
+        {/* Brand mobile drawer toggle (opens project navigation) */}
         <button
           type="button"
-          className={styles.drawerClose}
-          aria-label="Close menu"
-          onClick={() => closeDrawer(true)}>
-          <span aria-hidden="true">×</span>
+          ref={drawerTriggerRef}
+          className={styles.menuToggle}
+          aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={drawerOpen}
+          aria-controls={DRAWER_ID}
+          onClick={() => (drawerOpen ? closeDrawer(true) : setDrawerOpen(true))}
+        >
+          <span className={styles.menuBar} />
+          <span className={styles.menuBar} />
+          <span className={styles.menuBar} />
         </button>
-        {isHub
-          ? brand.navLinks.map((l) =>
+
+        {/* Scrim (presentation only; rendered while open) */}
+        {drawerOpen && (
+          <div
+            className={styles.scrim}
+            onClick={() => closeDrawer(true)}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* Brand mobile drawer (nav links + project switcher). Always present
+          in the HTML so links survive without JavaScript; `hidden` gates
+          visibility. */}
+        <div
+          id={DRAWER_ID}
+          ref={drawerRef}
+          className={styles.drawer}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
+          hidden={!drawerOpen}
+          onKeyDown={onDrawerKeyDown}
+        >
+          <button
+            type="button"
+            className={styles.drawerClose}
+            aria-label="Close menu"
+            onClick={() => closeDrawer(true)}
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+          {isHub ? (
+            brand.navLinks.map((l) =>
               renderNavLink(l, styles.drawerLink, () => closeDrawer(false)),
             )
-          : <span className={styles.drawerBadge}>{brand.projectBadge}</span>
-        }
-        {NAV_GROUPS.map((group) => (
-          <React.Fragment key={group.label}>
-            <div className={styles.drawerHeading}>{group.label}</div>
-            {group.items.map((p) => (
-              <a
-                key={p.name}
-                href={p.href}
-                className={styles.drawerLink}
-                aria-current={p.href === brand.projectUrl ? 'page' : undefined}
-                onClick={() => closeDrawer(false)}>
-                <span aria-hidden="true">{p.emoji}</span> {p.name}
-                {isExternalUrl(p.href) && <ExternalMark />}
-              </a>
-            ))}
-          </React.Fragment>
-        ))}
-      </div>
+          ) : (
+            <span className={styles.drawerBadge}>{brand.projectBadge}</span>
+          )}
+          {NAV_GROUPS.map((group) => (
+            <React.Fragment key={group.label}>
+              <div className={styles.drawerHeading}>{group.label}</div>
+              {group.items.map((p) => (
+                <a
+                  key={p.name}
+                  href={p.href}
+                  className={styles.drawerLink}
+                  aria-current={
+                    p.href === brand.projectUrl ? 'page' : undefined
+                  }
+                  onClick={() => closeDrawer(false)}
+                >
+                  <span aria-hidden="true">{p.emoji}</span> {p.name}
+                  {isExternalUrl(p.href) && <ExternalMark />}
+                </a>
+              ))}
+            </React.Fragment>
+          ))}
+        </div>
+      </header>
 
-    </header>
-
-    {/* Sidebar backdrop and panel are siblings to <header>, NOT children.
+      {/* Sidebar backdrop and panel are siblings to <header>, NOT children.
         This keeps them outside the backdrop-filter containing block so their
         position:fixed sizing is relative to the viewport, not the navbar. */}
-    <div
-      role="presentation"
-      className="navbar-sidebar__backdrop"
-      onClick={mobileSidebar.toggle}
-    />
-    <NavbarMobileSidebar />
+      <div
+        role="presentation"
+        className="navbar-sidebar__backdrop"
+        onClick={mobileSidebar.toggle}
+      />
+      <NavbarMobileSidebar />
     </div>
   );
 }

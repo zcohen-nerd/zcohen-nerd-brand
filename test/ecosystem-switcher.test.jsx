@@ -102,7 +102,9 @@ describe('EcosystemSwitcher — rendered link inventory', () => {
   });
 
   it('marks the current project with aria-current="page"', () => {
-    render(<EcosystemSwitcher projectUrl="https://portfolio.zcohen-nerd.com/" />);
+    render(
+      <EcosystemSwitcher projectUrl="https://portfolio.zcohen-nerd.com/" />,
+    );
     const current = panelLinks().filter(
       (a) => a.getAttribute('aria-current') === 'page',
     );

@@ -21,7 +21,9 @@ const FORBIDDEN_URLS = [
 let failures = [];
 const check = (name, ok, detail = '') => {
   if (!ok) failures.push(`${name}${detail ? ' — ' + detail : ''}`);
-  console.log(`${ok ? '  ok' : 'FAIL'}  ${name}${!ok && detail ? ' — ' + detail : ''}`);
+  console.log(
+    `${ok ? '  ok' : 'FAIL'}  ${name}${!ok && detail ? ' — ' + detail : ''}`,
+  );
 };
 
 const names = projects.map((p) => p.name);
@@ -30,13 +32,24 @@ check('no Surfer Fleet entry', !names.some((n) => /surfer/i.test(n)));
 
 const orders = projects.map((p) => p.order);
 check('unique order values', orders.length === new Set(orders).size);
-check('sorted by order', orders.every((o, i) => i === 0 || o > orders[i - 1]));
+check(
+  'sorted by order',
+  orders.every((o, i) => i === 0 || o > orders[i - 1]),
+);
 
 for (const p of projects) {
   check(`${p.name}: valid URL`, /^https:\/\/[^ ]+$/.test(p.href), p.href);
-  check(`${p.name}: allowed category`, CATEGORIES.includes(p.category), p.category);
+  check(
+    `${p.name}: allowed category`,
+    CATEGORIES.includes(p.category),
+    p.category,
+  );
   check(`${p.name}: boolean featured`, typeof p.featured === 'boolean');
-  check(`${p.name}: valid status`, ALLOWED_STATUS.includes(p.status?.label), p.status?.label);
+  check(
+    `${p.name}: valid status`,
+    ALLOWED_STATUS.includes(p.status?.label),
+    p.status?.label,
+  );
   for (const bad of FORBIDDEN_URLS) {
     check(`${p.name}: no legacy URL (${bad})`, !p.href.includes(bad));
   }
@@ -45,24 +58,49 @@ for (const p of projects) {
 // Fusion System Blocks is a v0.1.x release — it must stay Public Beta.
 // This guards against an accidental return to Live.
 const fsb = projects.find((p) => p.name === 'Fusion System Blocks');
-check('Fusion System Blocks uses Public Beta status', fsb?.status?.label === 'Public Beta', `got "${fsb?.status?.label}"`);
+check(
+  'Fusion System Blocks uses Public Beta status',
+  fsb?.status?.label === 'Public Beta',
+  `got "${fsb?.status?.label}"`,
+);
 
 // Navigation grouping invariants: both groups must be non-empty and the
 // shared Navbar must carry the two group labels.
-check('featured group non-empty', projects.some((p) => p.featured));
-check('tools/projects group non-empty', projects.some((p) => !p.featured));
+check(
+  'featured group non-empty',
+  projects.some((p) => p.featured),
+);
+check(
+  'tools/projects group non-empty',
+  projects.some((p) => !p.featured),
+);
 const fs = require('fs');
 const path = require('path');
 const readNav = (f) =>
-  fs.readFileSync(path.join(__dirname, '..', 'src', 'components', 'Navbar', f), 'utf8');
+  fs.readFileSync(
+    path.join(__dirname, '..', 'src', 'components', 'Navbar', f),
+    'utf8',
+  );
 // The group labels + disclosure trigger live in EcosystemSwitcher.js (imported
 // by Navbar/index.js). Check across both files.
 const switcherSrc = readNav('EcosystemSwitcher.js');
 const navbarSrc = readNav('index.js');
-check('Navbar has "Featured destinations" group', (navbarSrc + switcherSrc).includes('Featured destinations'));
-check('Navbar has "Tools & projects" group', (navbarSrc + switcherSrc).includes('Tools & projects'));
-check('Navbar disclosure labeled Ecosystem', switcherSrc.includes('Ecosystem <span'));
-check('Navbar wires in the extracted EcosystemSwitcher', navbarSrc.includes("from './EcosystemSwitcher'"));
+check(
+  'Navbar has "Featured destinations" group',
+  (navbarSrc + switcherSrc).includes('Featured destinations'),
+);
+check(
+  'Navbar has "Tools & projects" group',
+  (navbarSrc + switcherSrc).includes('Tools & projects'),
+);
+check(
+  'Navbar disclosure labeled Ecosystem',
+  switcherSrc.includes('Ecosystem <span'),
+);
+check(
+  'Navbar wires in the extracted EcosystemSwitcher',
+  navbarSrc.includes("from './EcosystemSwitcher'"),
+);
 
 if (failures.length) {
   console.error(`\n${failures.length} registry validation failure(s).`);

@@ -74,8 +74,12 @@ export default function EcosystemSwitcher({projectUrl}) {
         className={styles.switcherPill}
         aria-expanded={open}
         aria-controls={DISCLOSURE_ID}
-        onClick={() => setOpen((v) => !v)}>
-        Ecosystem <span className={styles.caret} aria-hidden="true">▾</span>
+        onClick={() => setOpen((v) => !v)}
+      >
+        Ecosystem{' '}
+        <span className={styles.caret} aria-hidden="true">
+          ▾
+        </span>
       </button>
       <div id={DISCLOSURE_ID} className={styles.dropdown} hidden={!open}>
         {NAV_GROUPS.map((group) => (
@@ -87,7 +91,8 @@ export default function EcosystemSwitcher({projectUrl}) {
                 href={p.href}
                 className={styles.dropdownItem}
                 aria-current={p.href === projectUrl ? 'page' : undefined}
-                onClick={() => close(false)}>
+                onClick={() => close(false)}
+              >
                 <span className={styles.dropdownEmoji} aria-hidden="true">
                   {p.emoji}
                 </span>
