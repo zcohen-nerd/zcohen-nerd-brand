@@ -3,6 +3,9 @@
   "version": "1.0.4",
   "description": "Shared Docusaurus brand system for the zcohen-nerd ecosystem — design tokens, Infima bridge, swizzled Navbar + Footer with docs-sidebar support, and the canonical project registry.",
   "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "main": "index.js",
   "files": [
     "index.js",
@@ -29,7 +32,27 @@
     "build": "cross-env NODE_ENV=production babel src --out-dir lib --copy-files --extensions '.js'",
     "pack:dry": "npm run build && npm pack --dry-run",
     "test:registry": "node scripts/validate-registry.js",
+    "format": "prettier --write .",
+    "format:check": "node scripts/changed-files.mjs --run \"prettier --check\"",
+    "lint": "eslint .",
+    "lint:md": "node scripts/changed-files.mjs --ext .md,.mdx --run \"markdownlint-cli2\"",
+    "lint:md:all": "markdownlint-cli2 \"**/*.md\" \"**/*.mdx\"",
+    "validate": "npm run test:registry",
+    "verify": "npm run format:check && npm run lint && npm run lint:md && npm run test:registry",
     "prepublishOnly": "npm run test:registry && npm run build"
+  },
+  "lint-staged": {
+    "*.{js,jsx,mjs,cjs}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{ts,tsx,json,jsonc,css,yml,yaml}": [
+      "prettier --write"
+    ],
+    "*.{md,mdx}": [
+      "prettier --write",
+      "markdownlint-cli2 --fix"
+    ]
   },
   "keywords": [
     "docusaurus",
@@ -40,7 +63,7 @@
     "brand"
   ],
   "peerDependencies": {
-    "@docusaurus/core": ">=3.0.0",
+    "@docusaurus/core": ">=3.10.2",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
@@ -53,6 +76,15 @@
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
     "@babel/preset-react": "^8.0.1",
-    "cross-env": "^10.1.0"
+    "@eslint/js": "^9.14.0",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.14.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "globals": "^15.12.0",
+    "lint-staged": "^15.2.10",
+    "markdownlint-cli2": "^0.23.0",
+    "prettier": "^3.3.3"
   }
 }
