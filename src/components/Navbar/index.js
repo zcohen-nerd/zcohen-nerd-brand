@@ -6,11 +6,7 @@ import NavbarMobileSidebar from '@theme/Navbar/MobileSidebar';
 import DEFAULT_BRAND from '../../data/defaultBrand';
 import {isExternalUrl} from '../../utils/isExternal';
 import {nextTrapTarget, getFocusable} from './focusTrap';
-import EcosystemSwitcher, {
-  NAV_GROUPS,
-  DISCLOSURE_ID,
-  ExternalMark,
-} from './EcosystemSwitcher';
+import EcosystemSwitcher, {NAV_GROUPS, ExternalMark} from './EcosystemSwitcher';
 import styles from './styles.module.css';
 
 /**
@@ -133,7 +129,15 @@ export default function Navbar() {
             className={styles.logoLink}
             aria-label="zcohen-nerd home"
           >
-            <img className={styles.logo} src={logoUrl} alt="zcohen-nerd" />
+            {/* Intrinsic size of assets/zcohen-nerd-logo.png; CSS `.logo` sets
+                the rendered height. Reserves space to avoid layout shift. */}
+            <img
+              className={styles.logo}
+              src={logoUrl}
+              alt="zcohen-nerd"
+              width={347}
+              height={55}
+            />
           </a>
         </div>
 
@@ -173,7 +177,9 @@ export default function Navbar() {
 
         {/* Brand mobile drawer (nav links + project switcher). Always present
           in the HTML so links survive without JavaScript; `hidden` gates
-          visibility. */}
+          visibility. A labelled modal dialog legitimately owns onKeyDown for
+          Escape + Tab-trapping — the Playwright + axe suite is the a11y gate. */}
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
         <div
           id={DRAWER_ID}
           ref={drawerRef}

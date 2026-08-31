@@ -1,4 +1,3 @@
-import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import projects from '../../data/projects';
 import DEFAULT_BRAND from '../../data/defaultBrand';

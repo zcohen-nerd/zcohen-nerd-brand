@@ -95,7 +95,8 @@ check(
 );
 check(
   'Navbar disclosure labeled Ecosystem',
-  switcherSrc.includes('Ecosystem <span'),
+  // "Ecosystem" then the caret span, tolerating Prettier's `{' '}` and wrapping.
+  /Ecosystem(\s*\{'\s'\})?\s*<span/.test(switcherSrc.replace(/\n\s*/g, ' ')),
 );
 check(
   'Navbar wires in the extracted EcosystemSwitcher',
