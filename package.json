@@ -15,7 +15,10 @@
     "src/data/",
     "src/utils/",
     "src/infima-bridge.css",
-    "assets/"
+    "assets/",
+    "LICENSE.md",
+    "LICENSE-CODE",
+    "TRADEMARKS.md"
   ],
   "exports": {
     ".": "./index.js",

@@ -95,7 +95,7 @@ const projects = [
     name: 'Connector Guide',
     href: 'https://zcohen-nerd.github.io/connector-engineering-field-guide/',
     emoji: '🔌',
-    blurb: 'A field guide and teaching tool for professional electrical connectors.',
+    blurb: 'A two-track field guide to electrical connectors — from hobby projects to engineered hardware.',
     category: 'destination',
     featured: true,
     order: 30,
