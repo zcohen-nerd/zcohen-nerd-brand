@@ -46,11 +46,12 @@ git config core.hooksPath .githooks   # runs lint-staged on staged files
 The Navbar's **ecosystem disclosure** and **mobile drawer** are the highest-risk
 interactive surfaces. They are covered in two layers:
 
-- **Unit (this repo)** — a jsdom + Vitest + Testing Library suite
+- **Unit (this repo)** — a jsdom + Vitest 4 + Testing Library suite
   (`test/*.test.jsx`, `vitest.config.mjs`) exercising ARIA wiring, `Escape`,
-  focus-trap/return, and scroll-lock. This suite currently lives with the navbar
-  remediation branch; once that is consolidated onto `main`, add `vitest` to
-  `devDependencies`, a `test` script, and a `test` step to `ci.yml`.
+  focus-trap/return, and scroll-lock. Runs via `npm test`; wired into `verify`,
+  `prepublishOnly`, and `ci.yml`. The `.js` components are JSX-in-`.js` (a
+  Docusaurus swizzle constraint) — a small `esbuild` pre-plugin in
+  `vitest.config.mjs` transforms exactly `src/components/**/*.js`.
 - **Integration** — `e2e/keyboard.spec.ts` in `zcohen-nerd-landing-page` runs the
   real compiled `lib/` components in a browser (`npm run test:keyboard` there).
 
@@ -61,7 +62,6 @@ PR. This repo previously had **no** CI.
 
 ## Deferred / known backlog
 
-- Add the Vitest suite + `test` step once the navbar remediation lands on `main`.
 - `lint:md:all` reports pre-existing `MD031/MD032` in `README.md`; `lint:md` is
   changed-scoped so it does not block.
 - `@babel/*` devDependencies are pinned to an `^8.0.x` pre-release — a separate

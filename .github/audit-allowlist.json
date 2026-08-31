@@ -36,34 +36,6 @@
       "reason": "uuid before 11.1.1 (GHSA-w5hq-g745-h8pq) is missing a buffer-bounds check in the v3/v5/v6 generators, but only on the code path where the caller passes a `buf` argument. sockjs calls `uuid.v4()` with no arguments, so the vulnerable branch is never entered. The dependency also exists only under webpack-dev-server, i.e. during `npm start` on a developer's localhost — it is not part of `docusaurus build` output and never runs on the deployed site. sockjs 0.3.24 (latest) still declares uuid@^8.3.2; forcing uuid@11 via `overrides` is a cross-major jump on a transitive-of-a-transitive and is deliberately not done here.",
       "upstream": "https://github.com/sockjs/sockjs-node — needs sockjs to widen / bump its uuid dependency",
       "review_by": "2026-11-30"
-    },
-    {
-      "package": "vitest",
-      "advisories": ["GHSA-5xrq-8626-4rwp"],
-      "severity": "critical",
-      "exposure": "dev-only test runner / vulnerable code path not installed",
-      "installed": "2.1.9",
-      "path": "devDependencies > vitest@2.1.9 (only used by `npm test` == `vitest run`)",
-      "fix_available": "npm reports fixAvailable: vitest@4.1.11 (isSemVerMajor: true) — a 2.x -> 4.x major bump. No patched 2.1.x or 3.x exists; the advisory range is <=3.2.5.",
-      "reason": "GHSA-5xrq-8626-4rwp requires the Vitest UI server to be listening (`vitest --ui`, which loads @vitest/ui) for an attacker page to read/execute arbitrary files. This repo does NOT install @vitest/ui and never passes --ui: the only invocation is the headless `vitest run` in `npm test` on a developer's machine / CI. npm audit flags the `vitest` metapackage by version range regardless of whether the UI package is present, so the vulnerable code is not on disk here. vitest and its whole tree are devDependencies and are excluded from the published package (the `files` whitelist ships only index.js, tokens/, lib/, src/components|data|utils, src/infima-bridge.css, assets/) — nothing reaches @zcohen-nerd/brand consumers or the deployed sites. The upstream fix is vitest 4, which also drops the direct `esbuild` import this repo's vitest.config.mjs uses for the JSX-in-.js transform; migrating that config + re-verifying the 26 component tests is a scheduled maintenance task, not a release-blocker.",
-      "upstream": "https://github.com/vitest-dev/vitest — fixed in vitest 4.x; local action is a config migration off the esbuild JSX transform, tracked for the next maintenance window",
-      "review_by": "2026-11-30"
-    },
-    {
-      "package": "vite",
-      "advisories": [
-        "GHSA-4w7w-66w2-5vf9",
-        "GHSA-v6wh-96g9-6wx3",
-        "GHSA-fx2h-pf6j-xcff"
-      ],
-      "severity": "high",
-      "exposure": "dev-only / transitive of vitest",
-      "installed": "5.4.21",
-      "path": "devDependencies > vitest@2.1.9 > vite@5.4.21 (also via @vitest/mocker, vite-node)",
-      "fix_available": "Only via vitest@4.1.11 (isSemVerMajor: true) — see the vitest entry. `npm audit fix` applied every semver-safe update; the remaining vite advisories are pinned by vitest 2.x's dependency range.",
-      "reason": "The vite advisories (path traversal in optimized-deps `.map` handling; `server.fs.deny` bypass on Windows alternate paths; launch-editor NTLM hash disclosure) are all against the Vite dev server / file-serving layer. Vite is present here only as a transitive dependency of vitest 2.1.9 and is exercised solely by the headless `vitest run` test process on a developer's machine / CI — no Vite dev server is started, and nothing from this tree is bundled into @zcohen-nerd/brand or any deployed site (devDependencies, excluded from the `files` whitelist). Clears together with the vitest 4 upgrade.",
-      "upstream": "https://github.com/vitejs/vite — pulled in by vitest; resolved by the vitest 4 upgrade",
-      "review_by": "2026-11-30"
     }
   ]
 }

@@ -1,5 +1,7 @@
 import {defineConfig} from 'vitest/config';
 import {fileURLToPath} from 'node:url';
+// `esbuild` is a direct devDependency (not relied on as a transitive of Vite)
+// so this import resolves the same across Vitest/Vite majors.
 import {transform} from 'esbuild';
 
 // Forward slashes only — @rollup/plugin-alias (used by Vite resolve.alias)
@@ -21,6 +23,9 @@ const stub = (name) =>
  * and @vitejs/plugin-react can't be used (the repo builds with a Babel 8
  * pre-release its Babel 7 path cannot load), so this pre-plugin runs esbuild's
  * JSX transform on exactly the component sources before import analysis.
+ *
+ * The `.jsx` test files use Vite's default transformer with the automatic JSX
+ * runtime, so they do not need a `React` import.
  */
 const jsxInJs = {
   name: 'zc-jsx-in-js',
@@ -39,6 +44,8 @@ const jsxInJs = {
 
 export default defineConfig({
   plugins: [jsxInJs],
+  // `.jsx` test files use Vite's default transformer (oxc under Vite 8) with the
+  // automatic JSX runtime, so they need no `React` import.
   resolve: {
     alias: {
       '@docusaurus/useDocusaurusContext': stub('useDocusaurusContext'),
