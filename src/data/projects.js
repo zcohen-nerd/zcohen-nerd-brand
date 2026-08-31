@@ -45,6 +45,15 @@ const STATUS_PUBLIC_REVIEW = {
   bg: 'rgba(176,111,0,.12)',
 };
 
+// A shipped v1.0 whose review discipline is a standing, continuous process
+// (currently: the Connector Field Guides). Green like STATUS_LIVE, but carries
+// the project's own canonical release label.
+const STATUS_SOURCE_VERIFIED = {
+  label: 'v1.0 — Source-Verified Release',
+  color: '#2e8555',
+  bg: 'rgba(46,133,85,.1)',
+};
+
 const STATUS_PUBLIC_BETA = {
   label: 'Public Beta',
   color: '#6d28d9',
@@ -86,11 +95,11 @@ const projects = [
     name: 'Connector Guide',
     href: 'https://zcohen-nerd.github.io/connector-engineering-field-guide/',
     emoji: '🔌',
-    blurb: 'A field guide and teaching tool for professional electrical connectors.',
+    blurb: 'A two-track field guide to electrical connectors — from hobby projects to engineered hardware.',
     category: 'destination',
     featured: true,
     order: 30,
-    status: STATUS_PUBLIC_REVIEW,
+    status: STATUS_SOURCE_VERIFIED,
     accent: '#c2410c',
     accentTint: 'rgba(194,65,12,.1)',
     accentSoft: '#e9b894',
@@ -194,4 +203,5 @@ module.exports.getProjectsByCategory = getProjectsByCategory;
 module.exports.STATUS_LIVE = STATUS_LIVE;
 module.exports.STATUS_IN_PROGRESS = STATUS_IN_PROGRESS;
 module.exports.STATUS_PUBLIC_REVIEW = STATUS_PUBLIC_REVIEW;
+module.exports.STATUS_SOURCE_VERIFIED = STATUS_SOURCE_VERIFIED;
 module.exports.STATUS_PUBLIC_BETA = STATUS_PUBLIC_BETA;

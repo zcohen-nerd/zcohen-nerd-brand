@@ -7,7 +7,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 40px;
+  /* Trimmed from 16px so the 44px-min discrete controls below do not grow the
+     header band: 12px + 44px + 12px ~= the old ~65px visual height. */
+  padding: 12px 40px;
   border-bottom: 1px solid var(--zc-color-border);
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
@@ -25,6 +27,7 @@
 .logoLink {
   display: flex;
   align-items: center;
+  min-height: 44px; /* comfortable tap target around the 26px wordmark */
 }
 
 .logo {
@@ -39,7 +42,10 @@
 }
 
 .navLink {
-  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 14px; /* density held via padding/line-height, not larger text */
   font-weight: var(--zc-weight-medium);
   color: var(--zc-color-text-body);
   text-decoration: none;
@@ -67,7 +73,7 @@
   padding: 10px 4px;
 }
 
-/* ── Projects ▾ switcher ─────────────────────────────────────────────────── */
+/* ── Ecosystem ▾ switcher ───────────────────────────────────────────────── */
 .switcher {
   position: relative;
 }
@@ -76,6 +82,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-height: 44px;
   font-family: inherit;
   font-size: 14px;
   font-weight: var(--zc-weight-medium);
@@ -83,7 +90,7 @@
   background: transparent;
   border: 1px solid var(--zc-color-border-strong);
   border-radius: var(--zc-radius-pill);
-  padding: 7px 14px;
+  padding: 8px 16px;
   cursor: pointer;
   transition: border-color var(--zc-transition-fast);
 }
@@ -132,7 +139,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 12px;
+  min-height: 44px;
+  padding: 8px 12px;
   border-radius: var(--zc-radius-md);
   color: var(--zc-color-text-body);
   text-decoration: none;
@@ -168,8 +176,8 @@
   display: none;
   flex-direction: column;
   gap: 5px;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   background: transparent;
@@ -184,8 +192,8 @@
   display: none;
   flex-direction: column;
   gap: 5px;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   background: transparent;
@@ -218,18 +226,48 @@
   width: min(78vw, 320px);
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 80px 24px 24px;
+  gap: 2px;
+  padding: 16px 20px 24px;
   background: var(--zc-color-surface);
   box-shadow: var(--zc-shadow-lg);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Visible close control — the header trigger is physically under the open
+   drawer on touch, so the dialog carries its own. It is the first focusable
+   element, so focus lands here when the drawer opens. */
+.drawerClose {
+  align-self: flex-end;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 -8px 4px 0;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--zc-color-text-body);
+  background: transparent;
+  border: 1px solid var(--zc-color-border-strong);
+  border-radius: var(--zc-radius-md);
+  cursor: pointer;
+}
+
+.drawerClose:hover {
+  border-color: var(--zc-cyan-500);
 }
 
 .drawerLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 8px;
   font-size: 16px;
   font-weight: var(--zc-weight-medium);
   color: var(--zc-color-text-body);
   text-decoration: none;
-  padding: 10px 4px;
   border-radius: var(--zc-radius-sm);
 }
 
@@ -249,7 +287,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--zc-color-text-subtle);
-  margin: 16px 4px 4px;
+  margin: 14px 8px 2px;
 }
 
 /* ── Hidden-state overrides ──────────────────────────────────────────────── */
@@ -275,23 +313,26 @@
 }
 
 /* ── Keyboard focus ─────────────────────────────────────────────────────── */
-/* Obvious brand-cyan focus ring on light surfaces; never remove the
-   indicator without this replacement. */
+/* Brand-cyan-700 focus ring on the light navbar surface. cyan-500 (#10b8d8)
+   is only ~2.4:1 on white and fails WCAG 2.2 SC 1.4.11 (3:1 for non-text);
+   cyan-700 (#0b7e96) is ~4.8:1. Never remove the indicator without a
+   replacement of at least equal contrast. */
 .navLink:focus-visible,
 .logoLink:focus-visible,
 .switcherPill:focus-visible,
 .dropdownItem:focus-visible,
 .menuToggle:focus-visible,
 .sidebarToggle:focus-visible,
+.drawerClose:focus-visible,
 .drawerLink:focus-visible {
-  outline: 2px solid var(--zc-cyan-500);
+  outline: 2px solid var(--zc-cyan-700);
   outline-offset: 2px;
   border-radius: var(--zc-radius-sm);
 }
 
 @media (max-width: 720px) {
   .header {
-    padding: 14px 20px;
+    padding: 10px 16px;
   }
   .nav {
     display: none;

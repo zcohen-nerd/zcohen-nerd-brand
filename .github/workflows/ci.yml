@@ -1,0 +1,34 @@
+name: ci
+
+# @zcohen-nerd/brand had no CI. This runs the same gates a maintainer runs
+# locally (`npm run verify`) plus the Babel build, on every push and PR.
+# The jsdom keyboard/disclosure suite (Vitest) is added here once the navbar
+# remediation that carries it is consolidated onto the default branch.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0 # scripts/changed-files.mjs diffs against the PR base
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run lint:md
+      - run: npm run test:registry
+      - run: npm run build
