@@ -3,6 +3,18 @@
 Consumer-facing changes to the shared Navbar/Footer API surface and the canonical
 project registry. Older releases (`1.0.x`) predate this file.
 
+## 1.3.1 — 2026-09-01
+
+**Patch — fixes a mobile-navbar regression in 1.3.0.**
+
+- **Navbar wordmark** — `.logo` now sets `width: auto; max-width: 100%` alongside
+  its `height: 26px`. In 1.3.0 the new intrinsic `width`/`height` attributes
+  could force the wordmark to its full `347px` intrinsic width where CSS only
+  constrained the height, overflowing the ~360 px mobile navbar
+  (`document scrollWidth` exceeded the viewport at 360/390 px). The attributes
+  still provide the aspect-ratio reservation for CLS; CSS is now authoritative
+  for the rendered box. Consumers on 1.3.0 should move to 1.3.1.
+
 ## 1.3.0 — 2026-08-31
 
 **Additive; no migration needed.**

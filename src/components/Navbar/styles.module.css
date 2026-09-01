@@ -32,6 +32,12 @@
 
 .logo {
   height: 26px;
+  /* width:auto + max-width keep CSS authoritative for the rendered box: the
+     intrinsic width/height attributes on the <img> are only an aspect-ratio
+     hint for layout-shift reservation, and must not force the wordmark wider
+     than its 26px height implies (that overflowed the ~360px mobile nav). */
+  width: auto;
+  max-width: 100%;
   display: block;
 }
 
