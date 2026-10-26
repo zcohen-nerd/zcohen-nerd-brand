@@ -1,13 +1,10 @@
 name: dependency-audit
 
-# Reports residual npm advisories and fails only on direct or
-# possibly-runtime-exposed high/critical findings. Build-only and
-# dev-server-only advisories are listed but do not fail the run.
-# Documented exceptions live in .github/audit-allowlist.json.
+# Fail on every unapproved advisory or unavailable/invalid audit report.
 
 on:
   schedule:
-    - cron: "23 6 * * 1" # Mondays 06:23 UTC, after Dependabot opens its PRs
+    - cron: "23 13 * * 1" # Monday 08:23 EST / 09:23 EDT; after the 06:00 ET Dependabot window
   pull_request:
     paths:
       - "package.json"
@@ -15,6 +12,18 @@ on:
       - ".github/audit-allowlist.json"
       - ".github/workflows/dependency-audit.yml"
       - "scripts/audit-ci.mjs"
+      - "scripts/test-audit-ci.mjs"
+      - ".github/DEPENDENCY-AUDIT.md"
+  push:
+    branches: [main]
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - ".github/audit-allowlist.json"
+      - ".github/workflows/dependency-audit.yml"
+      - "scripts/audit-ci.mjs"
+      - "scripts/test-audit-ci.mjs"
+      - ".github/DEPENDENCY-AUDIT.md"
   workflow_dispatch:
 
 permissions:
@@ -37,8 +46,8 @@ jobs:
       - name: Install (lockfile-exact)
         run: npm ci --no-audit --no-fund
 
+      - name: Test audit gate
+        run: node --test scripts/test-audit-ci.mjs
+
       - name: Audit gate
-        # The script runs `npm audit --json` itself and tolerates its non-zero
-        # exit (npm exits 1 whenever any advisory exists). Piping trips
-        # `pipefail` before the gate's own severity/exposure triage can run.
         run: node scripts/audit-ci.mjs
