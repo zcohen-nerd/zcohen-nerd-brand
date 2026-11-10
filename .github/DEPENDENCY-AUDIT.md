@@ -34,6 +34,15 @@ until removed. Re-review the documented path if a consumer or usage changes; the
 gate does not infer application reachability from package names or automatically
 approve future vulnerabilities on an excepted package.
 
+## November 10, 2026 PR review
+
+Retain the Dependabot Babel CLI/core 8.1.0 update and its transitive changes.
+Refresh Joi within its supported 17.x range to patched 17.13.9. Markdownlint
+pins re2js to 2.8.6, so a Markdownlint-scoped override selects patched 2.8.7.
+The two existing, version-bound audit exceptions are unchanged; no new
+exceptions are added for this package. Verify the registry, Babel build,
+packaged file list, and component test suite with the updated build tooling.
+
 ## Run locally
 
 Use Node 22 and npm 10, as in CI:
